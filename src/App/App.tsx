@@ -37,9 +37,9 @@ export const App = () => {
                     </>
                 )}
 
-                <Route path='/shop' element={<ShopPage />} />
+                <Route path='/' element={<ShopPage />} />
                 <Route path='/device/:id' element={<DevicePage />} />
-                <Route path='*' element={<Navigate to='/shop' replace />} />
+                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>
         </>
     );

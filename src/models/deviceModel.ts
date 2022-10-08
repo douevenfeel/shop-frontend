@@ -8,13 +8,13 @@ export interface DeviceModel {
     brand: BrandModel;
 }
 
-export interface DeviceDetailModel extends DeviceModel {
-    categories: CategoryModel[];
-}
-
 export interface BrandModel {
     id: number;
     title: string;
+}
+
+export interface DeviceDetailModel extends DeviceModel {
+    categories: CategoryModel[];
 }
 
 export interface CategoryModel {

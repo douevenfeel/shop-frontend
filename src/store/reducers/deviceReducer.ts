@@ -9,6 +9,9 @@ export interface DeviceState {
     devices: DeviceModel[];
     device: DeviceDetailModel;
     count: number;
+    page: number;
+    limit: number;
+    order: { title: string; order: [string, string] };
 }
 
 const initialState: DeviceState = {
@@ -16,6 +19,9 @@ const initialState: DeviceState = {
     devices: [],
     device: {} as DeviceDetailModel,
     count: 0,
+    page: 1,
+    limit: 12,
+    order: { title: 'default', order: ['image', 'DESC'] },
 };
 
 const deviceSlice = createSlice({
@@ -24,6 +30,12 @@ const deviceSlice = createSlice({
     reducers: {
         resetDevice: (state) => {
             state.device = {} as DeviceDetailModel;
+        },
+        changePage: (state, { payload }) => {
+            state.page = Math.max(payload, 1);
+        },
+        sortDevices: (state, { payload }) => {
+            state.order = payload;
         },
     },
     extraReducers: (builder) => {
@@ -57,6 +69,6 @@ const deviceSlice = createSlice({
     },
 });
 
-export const { resetDevice } = deviceSlice.actions;
+export const { resetDevice, changePage, sortDevices } = deviceSlice.actions;
 
 export const deviceReducer = deviceSlice.reducer;

@@ -14,13 +14,13 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, handleBrand }) =
         navigate(`/device/${device.id}`);
     };
 
-    const handleAddToCard = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleAddToBasket = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation();
     };
 
     return (
         <Card onClick={handleClick}>
-            <Image height='220px' src={`${process.env.REACT_APP_BACKEND_URL}${device.image}`} alt={device.title} />
+            <Image height='240px' src={`${process.env.REACT_APP_BACKEND_URL}${device.image}`} alt={device.title} />
             <Container
                 justifyContent='flex-start'
                 alignItems='flex-start'
@@ -28,7 +28,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, handleBrand }) =
                 gap='2px'
                 width='100%'
             >
-                <Paragraph outlined color={THEME.blue} fontWeight='500' onClick={handleBrand}>
+                <Paragraph outlined color={THEME.blue} fontWeight='500' onClick={handleBrand} cursor='pointer'>
                     {device.brand.title}
                 </Paragraph>
                 <Container justifyContent='space-between' width='100%'>
@@ -47,7 +47,11 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, handleBrand }) =
                     )}
                 </Container>
             </Container>
-            {authorized && <Button onClick={handleAddToCard}>add to cart</Button>}
+            {authorized && (
+                <Button onClick={handleAddToBasket} width='140px' height='32px' padding='4px 12px'>
+                    add to basket
+                </Button>
+            )}
         </Card>
     );
 };

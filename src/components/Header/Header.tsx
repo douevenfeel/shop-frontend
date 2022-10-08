@@ -19,17 +19,18 @@ export const Header = () => {
     return (
         <Container
             width='100vw'
+            maxWidth='100%'
             height='60px'
             background={THEME.gray}
-            position='relative'
+            position='absolute'
             alignItems='center'
             justifyContent='space-between'
-            padding='0px 44px'
+            padding='0px 20px'
             margin='0px 0px 20px'
         >
-            <LinkStyled to='/shop'>
-                <Paragraph fontWeight='600' fontSize='20px' cursor='pointer'>
-                    DEVICE SHOP
+            <LinkStyled to='/'>
+                <Paragraph fontWeight='500' fontSize='20px' cursor='pointer'>
+                    Phone.
                 </Paragraph>
             </LinkStyled>
             <Container gap='12px'>

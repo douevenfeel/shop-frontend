@@ -9,6 +9,7 @@ export interface ContainerProps {
     alignItems?: string;
     flexDirection?: string;
     width?: string;
+    maxWidth?: string;
     height?: string;
     position?: string;
     top?: string;
@@ -62,4 +63,10 @@ export interface ImageProps {
     minHeight?: string;
     margin?: string;
     pointer?: boolean;
+}
+
+export interface ArrowProps {
+    rotate: number;
+    top?: string;
+    left?: string;
 }

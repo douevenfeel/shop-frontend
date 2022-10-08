@@ -28,7 +28,7 @@ export const DevicePage = () => {
     return (
         <Page justifyContent='center'>
             {device && (
-                <Container flexDirection='column' gap='24px' alignItems='center' padding='0 24px'>
+                <Container flexDirection='column' gap='24px' alignItems='center'>
                     <Container gap='16px' flexDirection='column' alignItems='flex-start'>
                         <Image
                             height='440px'
@@ -57,7 +57,7 @@ export const DevicePage = () => {
                         {authorized && (
                             <Container justifyContent='center' width='100%'>
                                 <Button width='140px' height='32px' padding='4px 12px'>
-                                    add to cart
+                                    add to basket
                                 </Button>
                             </Container>
                         )}
@@ -68,7 +68,9 @@ export const DevicePage = () => {
                         </Paragraph>
                         <Container flexDirection='column'>
                             {device.categories &&
-                                device?.categories.map((category) => <Category category={category} />)}
+                                device?.categories.map((category) => (
+                                    <Category category={category} key={category.id} />
+                                ))}
                         </Container>
                     </Container>
                 </Container>

@@ -1,15 +1,26 @@
 import { THEME } from './../constants';
 import styled, { css } from 'styled-components';
-import { ButtonProps, ContainerProps, PageProps, ParagraphProps, FormProps, InputProps, ImageProps } from './types';
+import {
+    ButtonProps,
+    ContainerProps,
+    PageProps,
+    ParagraphProps,
+    FormProps,
+    InputProps,
+    ImageProps,
+    ArrowProps,
+} from './types';
 import { Link } from 'react-router-dom';
+import { ArrowIcon } from 'assets';
 
 export const Page = styled.div<PageProps>`
     display: flex;
     justify-content: ${(props) => props.justifyContent || 'flex-start'};
     align-items: ${(props) => props.alignItems || 'flex-start'};
     width: 100vw;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh);
     gap: ${(props) => props.gap || '0px'};
+    padding: 80px 20px 20px;
     flex-wrap: wrap;
     background-color: ${THEME.backgroundColor};
     overflow-x: hidden;
@@ -21,6 +32,7 @@ export const Container = styled.div<ContainerProps>`
     align-items: ${(props) => props.alignItems || 'flex-start'};
     flex-direction: ${(props) => props.flexDirection || 'row'};
     width: ${(props) => props.width || 'auto'};
+    max-width: ${(props) => props.maxWidth || 'auto'};
     height: ${(props) => props.height || 'auto'};
     position: ${(props) => props.position || 'relative'};
     ${(props) =>
@@ -113,4 +125,13 @@ export const Image = styled.img<ImageProps>`
     margin: ${(props) => props.margin || '0px'};
     background-color: inherit;
     cursor: ${(props) => props.pointer && 'pointer'};
+`;
+
+export const ArrowStyled = styled(ArrowIcon)<ArrowProps>`
+    position: relative;
+    top: ${(props) => props.top || '0px'};
+    left: ${(props) => props.left || '0px'};
+    width: 12px;
+    rotate: ${(props) => props.rotate || '0'}deg;
+    cursor: pointer;
 `;
