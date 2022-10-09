@@ -20,7 +20,6 @@ export const SigninPage = () => {
     }, [dispatch]);
 
     const onSubmit = (data: FieldValues) => {
-        console.log(data);
         dispatch(fetchSigninAction(data as SigninProps));
     };
     return (

@@ -6,7 +6,7 @@ import { DeviceModel } from 'models/deviceModel';
 import React, { useEffect, useState } from 'react';
 import { fetchGetAllDevicesAction } from 'store/actions/deviceAction';
 import { changePage } from 'store/reducers/deviceReducer';
-import { Container, Page } from 'utils/styles';
+import { Container, Page, Paragraph } from 'utils/styles';
 
 export const ShopPage = () => {
     const dispatch = useAppDispatch();
@@ -27,19 +27,25 @@ export const ShopPage = () => {
     return (
         <Page justifyContent='center'>
             <Container flexDirection='column' alignItems='center'>
-                <ShopPanel brandTitle={brandTitle} removeBrand={() => setBrandTitle('all')} />
-                <Container justifyContent='center' padding='0 auto' gap='20px' maxWidth='1440px'>
-                    {devices?.map((device: DeviceModel) => (
-                        <DeviceCard
-                            device={device}
-                            key={device.id}
-                            handleBrand={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-                                handleBrand(e, device.brand.title)
-                            }
-                        />
-                    ))}
-                </Container>
-                <Navigation />
+                {devices.length === 0 ? (
+                    <Paragraph>no phones yet</Paragraph>
+                ) : (
+                    <>
+                        <ShopPanel brandTitle={brandTitle} removeBrand={() => setBrandTitle('all')} />
+                        <Container justifyContent='center' padding='0 auto' gap='20px' maxWidth='1440px'>
+                            {devices?.map((device: DeviceModel) => (
+                                <DeviceCard
+                                    device={device}
+                                    key={device.id}
+                                    handleBrand={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+                                        handleBrand(e, device.brand.title)
+                                    }
+                                />
+                            ))}
+                        </Container>
+                        <Navigation />
+                    </>
+                )}
             </Container>
         </Page>
     );

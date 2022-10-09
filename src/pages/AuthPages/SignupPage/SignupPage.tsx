@@ -20,7 +20,6 @@ export const SignupPage = () => {
     }, [dispatch]);
 
     const onSubmit = (data: FieldValues) => {
-        console.log(data);
         dispatch(fetchSignupAction(data as SignupProps));
     };
     return (
