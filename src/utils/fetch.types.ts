@@ -17,3 +17,13 @@ export interface SigninProps {
     email: string;
     password: string;
 }
+
+export interface ChangeCount {
+    count: number;
+    deviceId: number;
+}
+
+export interface ChangeSelected {
+    selected: boolean;
+    deviceId: number;
+}

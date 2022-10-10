@@ -2,6 +2,7 @@ import { Category } from 'components/Category';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { fetchAddDeviceBasketAction } from 'store/actions/basketAction';
 import { fetchGetOneDeviceAction } from 'store/actions/deviceAction';
 import { resetDevice } from 'store/reducers/deviceReducer';
 import { THEME } from 'utils/constants';
@@ -25,6 +26,11 @@ export const DevicePage = () => {
     useEffect(() => {
         setTimeout(() => !device && navigate('/shop'), 200);
     }, [device, navigate]);
+
+    const handleAddToBasket = () => {
+        dispatch(fetchAddDeviceBasketAction(device.id));
+    };
+
     return (
         <Page justifyContent='center'>
             {device && (
@@ -56,7 +62,7 @@ export const DevicePage = () => {
                         </Container>
                         {authorized && (
                             <Container justifyContent='center' width='100%'>
-                                <Button width='140px' height='32px' padding='4px 12px'>
+                                <Button width='140px' height='32px' padding='4px 12px' onClick={handleAddToBasket}>
                                     add to basket
                                 </Button>
                             </Container>
