@@ -27,7 +27,7 @@ export const ShopPage = () => {
     return (
         <Page justifyContent='center'>
             <Container flexDirection='column' alignItems='center'>
-                {devices.length === 0 ? (
+                {devices && devices.length === 0 ? (
                     <Paragraph>no phones yet</Paragraph>
                 ) : (
                     <>
