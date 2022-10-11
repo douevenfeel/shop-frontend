@@ -11,11 +11,11 @@ export interface OrderModel {
 
 export interface OrderDeviceModel {
     id: number;
-    price: string;
+    price: number;
     count: number;
     device: DeviceModel;
 }
 
 export interface OrderDetailModel extends OrderModel {
-    orderDevices: OrderDetailModel[];
+    orderDevices: OrderDeviceModel[];
 }

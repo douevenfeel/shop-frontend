@@ -19,7 +19,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
     };
 
     const changeSelected = () => {
-        dispatch(fetchChangeSelectedBasketAction({ deviceId: device.id, selected: !selected }));
+        device.available && dispatch(fetchChangeSelectedBasketAction({ deviceId: device.id, selected: !selected }));
     };
 
     const handleDelete = () => {
@@ -28,15 +28,16 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
     return (
         <Container gap='8px'>
             <Checkbox onClick={changeSelected}>
-                <CheckboxSelected selected={selected} />
+                <CheckboxSelected selected={selected && device.available} />
             </Checkbox>
             <DeviceCardBasketContainer>
                 <Container flexDirection='column' gap='8px' alignItems='center'>
+                    {!device.available && <Paragraph>Not available</Paragraph>}
                     <Paragraph
                         textAlign='center'
                         width='100%'
                         fontSize='18px'
-                        color={selected ? THEME.white : THEME.lighterGray}
+                        color={selected && device.available ? THEME.white : THEME.lighterGray}
                     >
                         {device.brand.title} {device.title}
                     </Paragraph>
@@ -45,6 +46,9 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
                         src={`${process.env.REACT_APP_BACKEND_URL}${device.image}`}
                         alt={device.title}
                     />
+                    <Paragraph color={selected && device.available ? THEME.white : THEME.lighterGray}>
+                        {device.price} р.
+                    </Paragraph>
                 </Container>
                 <Container flexDirection='column' justifyContent='center' alignItems='center' gap='8px'>
                     <Container justifyContent='center'>
@@ -62,7 +66,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
                             width='36px'
                             textAlign='center'
                             fontSize='24px'
-                            color={selected ? THEME.white : THEME.lighterGray}
+                            color={selected && device.available ? THEME.white : THEME.lighterGray}
                         >
                             {count}
                         </Paragraph>

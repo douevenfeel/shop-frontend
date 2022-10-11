@@ -18,7 +18,6 @@ export const BasketPage = () => {
         dispatch(fetchCreateOrderAction());
         let selected = 0;
         basket.forEach((item) => item.selected && selected++);
-        console.log(selected);
         selected && navigate('/');
     };
 

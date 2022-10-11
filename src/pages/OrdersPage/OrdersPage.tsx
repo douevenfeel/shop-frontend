@@ -1,8 +1,10 @@
+import { Navigation } from 'components/Navigation';
 import { OrderCard } from 'components/OrderCard';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect, useState } from 'react';
 import { fetchGetAllOrdersAction } from 'store/actions/orderAction';
 import { Button, Container, Page, Paragraph } from 'utils/styles';
+import { OrdersContainer } from './OrdersPage.style';
 
 export const OrdersPage = () => {
     const { orders, fetchActionStatus } = useAppSelector((store) => store.order);
@@ -29,21 +31,32 @@ export const OrdersPage = () => {
     };
 
     return (
-        <Page alignItems='center' flexDirection='column' gap='12px'>
+        <Page alignItems='center' flexDirection='column'>
             {orders.length === 0 && !params ? (
                 <Paragraph fontSize='18px'>no orders yet</Paragraph>
             ) : (
-                <>
+                <Container width='calc(100vw - 40px)' maxWidth='768px' justifyContent='center' gap='12px'>
                     <Container gap='12px'>
-                        <Button onClick={handleAll}>all</Button>
-                        <Button onClick={handleDelivered}>delivered</Button>
-                        <Button onClick={handleInDelivery}>in delivery</Button>
-                        <Button onClick={handleCanceled}>canceled</Button>
+                        <Button padding='4px 10px' fontSize='14px' onClick={handleAll}>
+                            all
+                        </Button>
+                        <Button padding='4px 10px' fontSize='14px' onClick={handleDelivered}>
+                            delivered
+                        </Button>
+                        <Button padding='4px 10px' fontSize='14px' onClick={handleInDelivery}>
+                            in delivery
+                        </Button>
+                        <Button padding='4px 10px' fontSize='14px' onClick={handleCanceled}>
+                            canceled
+                        </Button>
                     </Container>
-                    {orders.map((order) => (
-                        <OrderCard key={order.id} {...order} />
-                    ))}
-                </>
+                    <OrdersContainer>
+                        {orders.map((order) => (
+                            <OrderCard key={order.id} {...order} />
+                        ))}
+                    </OrdersContainer>
+                    <Navigation></Navigation>
+                </Container>
             )}
         </Page>
     );
