@@ -17,6 +17,7 @@ export const Page = styled.div<PageProps>`
     display: flex;
     justify-content: ${(props) => props.justifyContent || 'flex-start'};
     align-items: ${(props) => props.alignItems || 'flex-start'};
+    flex-direction: ${(props) => props.flexDirection || 'row'};
     width: 100vw;
     min-height: calc(100vh);
     gap: ${(props) => props.gap || '0px'};
@@ -95,7 +96,8 @@ export const Button = styled.button<ButtonProps>`
     padding: ${(props) => props.padding || '6px 16px'};
     font-size: ${(props) => props.fontSize || '16px'};
     border-radius: 8px;
-    background-color: ${(props) => props.backgroundColor || THEME.blue};
+    background: ${(props) => props.backgroundColor || THEME.blue};
+    color: ${(props) => props.color || THEME.white};
     border: none;
     cursor: pointer;
     user-select: none;

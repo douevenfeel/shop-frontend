@@ -1,6 +1,7 @@
 export interface PageProps {
     justifyContent?: string;
     alignItems?: string;
+    flexDirection?: string;
     gap?: string;
 }
 
@@ -47,6 +48,7 @@ export interface ButtonProps {
     padding?: string;
     fontSize?: string;
     backgroundColor?: string;
+    color?: string;
 }
 
 export interface InputProps {

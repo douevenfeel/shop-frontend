@@ -27,8 +27,8 @@ export const App = () => {
                 {authorized ? (
                     <>
                         <Route path='/basket' element={<BasketPage />} />
-                        <Route path='/order/:id' element={<OrderPage />} />
                         <Route path='/orders' element={<OrdersPage />} />
+                        <Route path='/order/:id' element={<OrderPage />} />
                     </>
                 ) : (
                     <>
@@ -36,7 +36,6 @@ export const App = () => {
                         <Route path='/auth/signin' element={<SigninPage />} />
                     </>
                 )}
-
                 <Route path='/' element={<ShopPage />} />
                 <Route path='/device/:id' element={<DevicePage />} />
                 <Route path='*' element={<Navigate to='/' replace />} />
