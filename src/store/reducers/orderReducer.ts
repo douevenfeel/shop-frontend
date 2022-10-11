@@ -1,10 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { OrderDetailModel, OrderModel } from 'models/orderModel';
-import { fetchCreateOrderAction, fetchGetAllOrdersAction, fetchGetOneOrderAction } from 'store/actions/orderAction';
+import {
+    fetchCancelOrderAction,
+    fetchCreateOrderAction,
+    fetchGetAllOrdersAction,
+    fetchGetOneOrderAction,
+    fetchHideOrderAction,
+} from 'store/actions/orderAction';
 import { FetchStatus } from 'utils/fetchStatus.types';
 
 export interface OrderState {
     fetchStatus: FetchStatus;
+    fetchActionStatus: FetchStatus;
     orders: OrderModel[];
     count: number;
     order: OrderDetailModel;
@@ -13,6 +20,7 @@ export interface OrderState {
 
 const initialState: OrderState = {
     fetchStatus: FetchStatus.IDLE,
+    fetchActionStatus: FetchStatus.IDLE,
     orders: [] as OrderModel[],
     count: 0,
     order: {} as OrderDetailModel,
@@ -74,6 +82,36 @@ const orderSlice = createSlice({
         builder.addCase(fetchGetOneOrderAction.rejected, (state, { error }: any) => {
             console.log('fetchGetOneOrderAction.rejected');
             state.fetchStatus = FetchStatus.REJECTED;
+            state.error = JSON.parse(error.message);
+        });
+        builder.addCase(fetchCancelOrderAction.pending, (state) => {
+            console.log('fetchCancelOrderAction.pending');
+            state.fetchActionStatus = FetchStatus.PENDING;
+            state.error = '';
+        });
+        builder.addCase(fetchCancelOrderAction.fulfilled, (state) => {
+            console.log('fetchCancelOrderAction.fulfilled');
+            state.fetchActionStatus = FetchStatus.FULFILLED;
+            state.error = '';
+        });
+        builder.addCase(fetchCancelOrderAction.rejected, (state, { error }: any) => {
+            console.log('fetchCancelOrderAction.rejected');
+            state.fetchActionStatus = FetchStatus.REJECTED;
+            state.error = JSON.parse(error.message);
+        });
+        builder.addCase(fetchHideOrderAction.pending, (state) => {
+            console.log('fetchHideOrderAction.pending');
+            state.fetchActionStatus = FetchStatus.PENDING;
+            state.error = '';
+        });
+        builder.addCase(fetchHideOrderAction.fulfilled, (state) => {
+            console.log('fetchHideOrderAction.fulfilled');
+            state.fetchActionStatus = FetchStatus.FULFILLED;
+            state.error = '';
+        });
+        builder.addCase(fetchHideOrderAction.rejected, (state, { error }: any) => {
+            console.log('fetchHideOrderAction.rejected');
+            state.fetchActionStatus = FetchStatus.REJECTED;
             state.error = JSON.parse(error.message);
         });
     },

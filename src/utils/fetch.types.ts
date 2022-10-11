@@ -27,3 +27,8 @@ export interface ChangeSelected {
     selected: boolean;
     deviceId: number;
 }
+
+export interface GetAllOrdersProps {
+    canceled?: boolean;
+    delivered?: boolean;
+}
