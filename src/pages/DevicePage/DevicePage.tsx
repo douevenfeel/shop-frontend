@@ -67,17 +67,19 @@ export const DevicePage = () => {
                             </Container>
                         )}
                     </Container>
-                    <Container flexDirection='column'>
-                        <Paragraph fontSize='24px' fontWeight='500'>
-                            Подробная информация
-                        </Paragraph>
+                    {device.categories?.length !== 0 && (
                         <Container flexDirection='column'>
-                            {device.categories &&
-                                device?.categories.map((category) => (
-                                    <Category category={category} key={category.id} />
-                                ))}
+                            <Paragraph fontSize='24px' fontWeight='500'>
+                                Подробная информация
+                            </Paragraph>
+                            <Container flexDirection='column'>
+                                {device.categories &&
+                                    device?.categories.map((category) => (
+                                        <Category category={category} key={category.id} />
+                                    ))}
+                            </Container>
                         </Container>
-                    </Container>
+                    )}
                 </Container>
             )}
         </Page>
