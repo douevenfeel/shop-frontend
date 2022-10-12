@@ -1,21 +1,20 @@
 import { Role } from 'api/types/userService.types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { fetchLogoutAction } from 'store/actions/authAction';
 import { handleUserRole, refreshUserRole } from 'store/reducers/userReducer';
 import { THEME } from 'utils/constants';
+import { FetchStatus } from 'utils/fetchStatus.types';
 import { Container, LinkStyled, Paragraph } from 'utils/styles';
 
 export const Header = () => {
-    const [loading, setLoading] = useState(true);
-    const { authorized, user, role } = useAppSelector((store) => store.user);
+    const { authorized, user, role, fetchStatus } = useAppSelector((store) => store.user);
     const [nextRole, setNextRole] = useState<Role>('ADMIN');
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
     const isAuth = pathname === '/auth/signup' || pathname === '/auth/signin';
     useEffect(() => {
-        setTimeout(() => setLoading(false), 50);
         dispatch(refreshUserRole());
     }, [dispatch, user]);
 
@@ -44,44 +43,44 @@ export const Header = () => {
                 </Paragraph>
             </LinkStyled>
             <Container gap='12px'>
-                {!isAuth && !authorized && !loading ? (
-                    <>
-                        <LinkStyled to='/auth/signin'>
-                            <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
-                                Sign in
-                            </Paragraph>
-                        </LinkStyled>
-                        <LinkStyled to='/auth/signup'>
-                            <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
-                                Sign up
-                            </Paragraph>
-                        </LinkStyled>
-                    </>
-                ) : (
-                    authorized &&
-                    !loading && (
+                {!isAuth &&
+                    fetchStatus === FetchStatus.FULFILLED &&
+                    ((!authorized && (
                         <>
-                            {user.role === 'ADMIN' && (
-                                <Paragraph color={THEME.red} fontWeight='500' cursor='pointer' onClick={handleRole}>
-                                    {role === 'ADMIN' ? 'USER' : 'ADMIN'}
-                                </Paragraph>
-                            )}
-                            <LinkStyled to='/basket'>
+                            <LinkStyled to='/auth/signin'>
                                 <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
-                                    Basket
+                                    Sign in
                                 </Paragraph>
                             </LinkStyled>
-                            <LinkStyled to='/orders'>
+                            <LinkStyled to='/auth/signup'>
                                 <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
-                                    Orders
+                                    Sign up
                                 </Paragraph>
                             </LinkStyled>
-                            <Paragraph color={THEME.blue} fontWeight='500' onClick={handleLogout} cursor='pointer'>
-                                Logout
-                            </Paragraph>
                         </>
-                    )
-                )}
+                    )) ||
+                        (authorized && (
+                            <>
+                                {user.role === 'ADMIN' && (
+                                    <Paragraph color={THEME.red} fontWeight='500' cursor='pointer' onClick={handleRole}>
+                                        {role === 'ADMIN' ? 'USER' : 'ADMIN'}
+                                    </Paragraph>
+                                )}
+                                <LinkStyled to='/basket'>
+                                    <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
+                                        Basket
+                                    </Paragraph>
+                                </LinkStyled>
+                                <LinkStyled to='/orders'>
+                                    <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
+                                        Orders
+                                    </Paragraph>
+                                </LinkStyled>
+                                <Paragraph color={THEME.blue} fontWeight='500' onClick={handleLogout} cursor='pointer'>
+                                    Logout
+                                </Paragraph>
+                            </>
+                        )))}
             </Container>
         </Container>
     );
