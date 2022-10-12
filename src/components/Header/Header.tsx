@@ -44,7 +44,6 @@ export const Header = () => {
             </LinkStyled>
             <Container gap='12px'>
                 {!isAuth &&
-                    fetchStatus === FetchStatus.FULFILLED &&
                     ((!authorized && (
                         <>
                             <LinkStyled to='/auth/signin'>

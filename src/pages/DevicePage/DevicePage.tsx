@@ -2,11 +2,13 @@ import { Category } from 'components/Category';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchAddDeviceBasketAction } from 'store/actions/basketAction';
 import { fetchGetOneDeviceAction } from 'store/actions/deviceAction';
 import { resetDevice } from 'store/reducers/deviceReducer';
 import { THEME } from 'utils/constants';
 import { Button, Container, Image, Page, Paragraph } from 'utils/styles';
+import { DevicePageContainer } from './DevicePage.style';
 
 export const DevicePage = () => {
     const { authorized } = useAppSelector((store) => store.user);
@@ -14,6 +16,15 @@ export const DevicePage = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            !authorized && dispatch(fetchRefreshAction());
+        } else {
+            !authorized && navigate('/shop');
+        }
+    }, [authorized, dispatch, navigate]);
+
     useEffect(() => {
         id && dispatch(fetchGetOneDeviceAction({ id: +id }));
 
@@ -33,8 +44,8 @@ export const DevicePage = () => {
     return (
         <Page justifyContent='center'>
             {!loading && device && (
-                <Container flexDirection='column' gap='24px' alignItems='center'>
-                    <Container gap='16px' flexDirection='column' alignItems='flex-start'>
+                <DevicePageContainer>
+                    <Container gap='16px' flexDirection='column' justifyContent='center' alignItems='flex-start'>
                         <Image
                             height='440px'
                             src={`${process.env.REACT_APP_BACKEND_URL}${device.image}`}
@@ -80,7 +91,7 @@ export const DevicePage = () => {
                             </Container>
                         </Container>
                     )}
-                </Container>
+                </DevicePageContainer>
             )}
         </Page>
     );

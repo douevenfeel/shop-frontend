@@ -1,5 +1,6 @@
 import { useAppDispatch } from 'hooks/redux';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     fetchChangeCountBasketAction,
     fetchChangeSelectedBasketAction,
@@ -13,6 +14,7 @@ import { DeviceCardBasketProps } from './DeviceCardBasket.types';
 
 export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, selected, device }) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const changeCount = (count: number) => {
         dispatch(fetchChangeCountBasketAction({ deviceId: device.id, count }));
@@ -25,6 +27,11 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
     const handleDelete = () => {
         dispatch(fetchDeleteDeviceBasketAction({ deviceId: device.id }));
     };
+
+    const handleClick = () => {
+        navigate(`/device/${device.id}`);
+    };
+
     return (
         <Container gap='8px'>
             <Checkbox onClick={changeSelected}>
@@ -45,6 +52,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
                         height='280px'
                         src={`${process.env.REACT_APP_BACKEND_URL}${device.image}`}
                         alt={device.title}
+                        onClick={handleClick}
                     />
                     <Paragraph color={selected && device.available ? THEME.white : THEME.lighterGray}>
                         {device.price} р.
@@ -56,7 +64,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
                             width='36px'
                             height='36px'
                             padding='0'
-                            backgroundColor={THEME.green}
+                            backgroundColor={THEME.blue}
                             fontSize='20px'
                             onClick={() => changeCount(count + 1)}
                         >
@@ -74,7 +82,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
                             width='36px'
                             height='36px'
                             padding='0'
-                            backgroundColor={THEME.green}
+                            backgroundColor={THEME.blue}
                             fontSize='20px'
                             onClick={() => changeCount(count - 1)}
                         >

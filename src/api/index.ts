@@ -19,12 +19,11 @@ axiosInstance.interceptors.response.use(
         if (error.response.status === 401 && error.config && !error.config._isRetry && localStorage.getItem('token')) {
             originalRequest._isRetry = true;
             try {
-                localStorage.removeItem('token');
                 const response = await axiosInstance.get('/auth/refresh');
                 localStorage.setItem('token', response.data.accessToken);
                 return axiosInstance.request(originalRequest);
             } catch (e) {
-                console.log('НЕ АВТОРИЗОВАН');
+                console.log('forbidden');
             }
         }
         throw error;

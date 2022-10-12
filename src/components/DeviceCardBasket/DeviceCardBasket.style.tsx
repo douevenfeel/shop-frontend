@@ -25,7 +25,7 @@ export const Checkbox = styled.div`
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 2px solid ${THEME.green};
+    border: 2px solid ${THEME.blue};
 `;
 
 export const CheckboxSelected = styled.div<{ selected: boolean }>`
@@ -33,5 +33,5 @@ export const CheckboxSelected = styled.div<{ selected: boolean }>`
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: ${(props) => (props.selected ? THEME.green : 'transparent')};
+    background: ${(props) => (props.selected ? THEME.blue : 'transparent')};
 `;

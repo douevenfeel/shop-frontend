@@ -10,7 +10,7 @@ import { Button, Container, Page, Paragraph } from 'utils/styles';
 
 export const BasketPage = () => {
     const dispatch = useAppDispatch();
-    const { basket, loading } = useAppSelector((store) => store.basket);
+    const { basket, loading, fetchActionStatus } = useAppSelector((store) => store.basket);
     const { authorized } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export const BasketPage = () => {
 
     useEffect(() => {
         authorized && dispatch(fetchGetBasketAction());
-    }, [authorized, dispatch, navigate]);
+    }, [authorized, dispatch, navigate, fetchActionStatus]);
 
     const handleSubmit = () => {
         dispatch(fetchCreateOrderAction());
@@ -41,7 +41,7 @@ export const BasketPage = () => {
                     <Paragraph fontSize='18px'>no phones in the basket yet</Paragraph>
                 ) : (
                     <>
-                        <Button backgroundColor={THEME.green} onClick={handleSubmit}>
+                        <Button backgroundColor={THEME.blue} onClick={handleSubmit}>
                             Confirm order
                         </Button>
                         <Container flexDirection='column' gap='20px'>
