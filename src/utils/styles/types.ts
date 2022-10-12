@@ -68,7 +68,10 @@ export interface ImageProps {
 }
 
 export interface ArrowProps {
+    position?: string;
     rotate: number;
     top?: string;
+    right?: string;
+    bottom?: string;
     left?: string;
 }

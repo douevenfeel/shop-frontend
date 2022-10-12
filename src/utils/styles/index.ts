@@ -130,10 +130,13 @@ export const Image = styled.img<ImageProps>`
 `;
 
 export const ArrowStyled = styled(ArrowIcon)<ArrowProps>`
-    position: relative;
+    position: ${(props) => props.position || 'relative'};
     top: ${(props) => props.top || '0px'};
+    right: ${(props) => props.right || '0px'};
+    bottom: ${(props) => props.bottom || '0px'};
     left: ${(props) => props.left || '0px'};
     width: 12px;
     rotate: ${(props) => props.rotate || '0'}deg;
     cursor: pointer;
+    z-index: 20;
 `;

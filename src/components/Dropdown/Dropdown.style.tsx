@@ -10,4 +10,6 @@ export const Option = styled.p`
     font-size: 14px;
     user-select: none;
     cursor: pointer;
+    z-index: 10;
+    background: ${THEME.darkerGray};
 `;
