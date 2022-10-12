@@ -70,7 +70,7 @@ export const OrderPage = () => {
                             </Paragraph>
                         )}
                     </Paragraph>
-                    <Container justifyContent='center' alignItems='flex-start' gap='4px' margin='0 0 8px'>
+                    <Container justifyContent='center' alignItems='center' gap='4px' margin='0 0 8px' width='100%'>
                         {order.orderDevices?.map((orderDevice) => (
                             <DeviceCardOrder key={orderDevice.id} {...orderDevice} />
                         ))}
