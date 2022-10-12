@@ -11,7 +11,7 @@ import { Button, Container, Page, Paragraph } from 'utils/styles';
 import { OrderPageStyled } from './OrderPage.style';
 
 export const OrderPage = () => {
-    const { order, loading } = useAppSelector((store) => store.order);
+    const { order, loading, fetchActionStatus } = useAppSelector((store) => store.order);
     const { authorized } = useAppSelector((store) => store.user);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const OrderPage = () => {
         return () => {
             dispatch(resetOrder());
         };
-    }, [dispatch, id]);
+    }, [dispatch, id, fetchActionStatus]);
 
     useEffect(() => {
         setTimeout(() => !order && navigate('/orders'), 200);
@@ -39,11 +39,11 @@ export const OrderPage = () => {
 
     const handleHide = () => {
         dispatch(fetchHideOrderAction({ id: order.id }));
+        navigate('/orders');
     };
 
     const handleCancel = () => {
         dispatch(fetchCancelOrderAction({ id: order.id }));
-        navigate('/orders');
     };
     return (
         <Page justifyContent='center' alignItems='center'>
