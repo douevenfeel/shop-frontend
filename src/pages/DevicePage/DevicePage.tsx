@@ -1,7 +1,7 @@
 import { Category } from 'components/Category';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchAddDeviceBasketAction } from 'store/actions/basketAction';
 import { fetchGetOneDeviceAction } from 'store/actions/deviceAction';
 import { resetDevice } from 'store/reducers/deviceReducer';
@@ -10,30 +10,29 @@ import { Button, Container, Image, Page, Paragraph } from 'utils/styles';
 
 export const DevicePage = () => {
     const { authorized } = useAppSelector((store) => store.user);
-    const { device } = useAppSelector((store) => store.device);
-    const { pathname } = useLocation();
+    const { device, loading } = useAppSelector((store) => store.device);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { id } = useParams();
     useEffect(() => {
-        const id = +pathname.split('/')[2];
-        dispatch(fetchGetOneDeviceAction(id));
+        id && dispatch(fetchGetOneDeviceAction({ id: +id }));
 
         return () => {
             dispatch(resetDevice());
         };
-    }, [dispatch, pathname]);
+    }, [dispatch, id]);
 
     useEffect(() => {
         setTimeout(() => !device && navigate('/shop'), 200);
     }, [device, navigate]);
 
     const handleAddToBasket = () => {
-        dispatch(fetchAddDeviceBasketAction(device.id));
+        dispatch(fetchAddDeviceBasketAction({ deviceId: device.id }));
     };
 
     return (
         <Page justifyContent='center'>
-            {device && (
+            {!loading && device && (
                 <Container flexDirection='column' gap='24px' alignItems='center'>
                     <Container gap='16px' flexDirection='column' alignItems='flex-start'>
                         <Image

@@ -23,7 +23,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
     };
 
     const handleDelete = () => {
-        dispatch(fetchDeleteDeviceBasketAction(device.id));
+        dispatch(fetchDeleteDeviceBasketAction({ deviceId: device.id }));
     };
     return (
         <Container gap='8px'>

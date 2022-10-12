@@ -18,7 +18,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, handleBrand }) =
 
     const handleAddToBasket = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation();
-        dispatch(fetchAddDeviceBasketAction(device.id));
+        dispatch(fetchAddDeviceBasketAction({ deviceId: device.id }));
     };
 
     return (

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchLogout, fetchRefresh, fetchSignin, fetchSignup } from 'api/services/authService';
-import { SigninProps, SignupProps } from 'utils/fetch.types';
+import { SignupProps, SigninProps } from 'api/types/authService.types';
 
 export const fetchSignupAction = createAsyncThunk('signup/fetchSignup', async (values: SignupProps) => {
     return await fetchSignup(values);

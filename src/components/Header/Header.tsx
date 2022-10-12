@@ -1,21 +1,31 @@
+import { Role } from 'api/types/userService.types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchLogoutAction } from 'store/actions/authAction';
+import { handleUserRole, refreshUserRole } from 'store/reducers/userReducer';
 import { THEME } from 'utils/constants';
 import { Container, LinkStyled, Paragraph } from 'utils/styles';
 
 export const Header = () => {
     const [loading, setLoading] = useState(true);
-    const { authorized, user } = useAppSelector((store) => store.user);
+    const { authorized, user, role } = useAppSelector((store) => store.user);
+    const [nextRole, setNextRole] = useState<Role>('ADMIN');
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
     const isAuth = pathname === '/auth/signup' || pathname === '/auth/signin';
     useEffect(() => {
         setTimeout(() => setLoading(false), 50);
-    }, []);
+        dispatch(refreshUserRole());
+    }, [dispatch, user]);
 
-    const handleLogout = () => dispatch(fetchLogoutAction());
+    const handleLogout = () => {
+        dispatch(fetchLogoutAction());
+    };
+    const handleRole = () => {
+        dispatch(handleUserRole(nextRole));
+        nextRole === 'ADMIN' ? setNextRole('USER') : setNextRole('ADMIN');
+    };
     return (
         <Container
             width='100vw'
@@ -52,11 +62,9 @@ export const Header = () => {
                     !loading && (
                         <>
                             {user.role === 'ADMIN' && (
-                                <LinkStyled to='/admin'>
-                                    <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
-                                        Admin
-                                    </Paragraph>
-                                </LinkStyled>
+                                <Paragraph color={THEME.red} fontWeight='500' cursor='pointer' onClick={handleRole}>
+                                    {role === 'ADMIN' ? 'USER' : 'ADMIN'}
+                                </Paragraph>
                             )}
                             <LinkStyled to='/basket'>
                                 <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>

@@ -1,6 +1,6 @@
 import axiosInstance from 'api';
+import { SignupProps, SigninProps } from 'api/types/authService.types';
 import { AxiosError } from 'axios';
-import { SigninProps, SignupProps } from 'utils/fetch.types';
 
 export const fetchSignup = (values: SignupProps) =>
     axiosInstance

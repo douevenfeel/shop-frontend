@@ -1,12 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+    fetchGetBasket,
     fetchAddDeviceBasket,
     fetchChangeCountBasket,
     fetchChangeSelectedBasket,
     fetchDeleteDeviceBasket,
-    fetchGetBasket,
 } from 'api/services/basketService';
-import { ChangeCount, ChangeSelected } from 'utils/fetch.types';
+import {
+    AddDeviceBasketProps,
+    ChangeCountBasketProps,
+    ChangeSelectedBasketProps,
+    DeleteDeviceBasketProps,
+} from 'api/types/basketService.types';
 
 export const fetchGetBasketAction = createAsyncThunk('getBasket/fetchGetBasket', async () => {
     return await fetchGetBasket();
@@ -14,28 +19,28 @@ export const fetchGetBasketAction = createAsyncThunk('getBasket/fetchGetBasket',
 
 export const fetchAddDeviceBasketAction = createAsyncThunk(
     'addDeviceBasket/fetchAddDevice',
-    async (deviceId: number) => {
-        return await fetchAddDeviceBasket(deviceId);
+    async (values: AddDeviceBasketProps) => {
+        return await fetchAddDeviceBasket(values);
     }
 );
 
 export const fetchChangeCountBasketAction = createAsyncThunk(
     'changeCountBasket/fetchChangeCountBasket',
-    async (values: ChangeCount) => {
+    async (values: ChangeCountBasketProps) => {
         return await fetchChangeCountBasket(values);
     }
 );
 
 export const fetchChangeSelectedBasketAction = createAsyncThunk(
     'changeSelectedBasket/fetchChangeSelectedBasket',
-    async (values: ChangeSelected) => {
+    async (values: ChangeSelectedBasketProps) => {
         return await fetchChangeSelectedBasket(values);
     }
 );
 
 export const fetchDeleteDeviceBasketAction = createAsyncThunk(
     'deleteDeviceBasket/fetchDeleteDeviceBasket',
-    async (deviceId: number) => {
-        return await fetchDeleteDeviceBasket(deviceId);
+    async (values: DeleteDeviceBasketProps) => {
+        return await fetchDeleteDeviceBasket(values);
     }
 );

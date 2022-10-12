@@ -1,12 +1,14 @@
-import { fetchLogoutAction, fetchSigninAction, fetchSignupAction, fetchRefreshAction } from './../actions/authAction';
 import { createSlice } from '@reduxjs/toolkit';
 import { UserModel } from 'models/userModel';
 import { FetchStatus } from 'utils/fetchStatus.types';
+import { Role } from 'api/types/userService.types';
+import { fetchSignupAction, fetchSigninAction, fetchLogoutAction, fetchRefreshAction } from 'store/actions/authAction';
 
 export interface UserState {
     fetchStatus: FetchStatus;
     authorized: boolean;
     user: UserModel;
+    role: Role;
     error: string | any;
 }
 
@@ -14,6 +16,7 @@ const initialState: UserState = {
     fetchStatus: FetchStatus.IDLE,
     authorized: false,
     user: {} as UserModel,
+    role: 'USER',
     error: '',
 };
 
@@ -23,6 +26,14 @@ const userSlice = createSlice({
     reducers: {
         resetUserError: (state) => {
             state.error = '';
+        },
+        handleUserRole: (state, { payload }) => {
+            state.role = payload;
+        },
+        refreshUserRole: (state) => {
+            if (state.user.role === 'USER') {
+                state.role = 'USER';
+            }
         },
     },
     extraReducers: (builder) => {
@@ -93,5 +104,5 @@ const userSlice = createSlice({
     },
 });
 
-export const { resetUserError } = userSlice.actions;
+export const { resetUserError, handleUserRole, refreshUserRole } = userSlice.actions;
 export const userReducer = userSlice.reducer;

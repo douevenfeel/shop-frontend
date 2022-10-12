@@ -13,11 +13,11 @@ export const OrderCard: React.FC<OrderCardProps> = ({ canceled, delivered, deliv
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const handleCancel = () => {
-        dispatch(fetchCancelOrderAction(id));
+        dispatch(fetchCancelOrderAction({ id }));
     };
 
     const handleHide = () => {
-        dispatch(fetchHideOrderAction(id));
+        dispatch(fetchHideOrderAction({ id }));
     };
 
     const handleShow = () => {
@@ -44,15 +44,12 @@ export const OrderCard: React.FC<OrderCardProps> = ({ canceled, delivered, deliv
                         in delivery
                     </Paragraph>
                 )}
-                {/* <Paragraph as='span' color={THEME.red}>
-                    {(canceled && 'canceled') || (delivered && 'delivered') || 'in delivery'}
-                </Paragraph> */}
             </Paragraph>
             <Container gap='8px'>
                 <Button backgroundColor={THEME.green} onClick={handleShow}>
                     show details
                 </Button>
-                {delivered && (
+                {(delivered || canceled) && (
                     <Button backgroundColor={THEME.lighterGray} onClick={handleHide}>
                         hide
                     </Button>

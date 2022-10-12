@@ -1,6 +1,8 @@
 import axiosInstance from 'api';
+import { GetAllOrdersProps, GetOneOrderProps, CancelOrderProps, HideOrderProps, DeliveryOrderProps } from 'api/types/orderService.types';
+
+
 import { AxiosError } from 'axios';
-import { GetAllOrdersProps } from 'utils/fetch.types';
 
 export const fetchCreateOrder = () =>
     axiosInstance
@@ -18,25 +20,33 @@ export const fetchGetAllOrders = (params: GetAllOrdersProps) =>
             throw JSON.stringify(error.response?.data);
         });
 
-export const fetchGetOneOrder = (id: number) =>
+export const fetchGetOneOrder = (values: GetOneOrderProps) =>
     axiosInstance
-        .get(`/order/${id}`)
+        .get(`/order/${values.id}`)
         .then((response) => response?.data)
         .catch((error: AxiosError<Record<string, string>>) => {
             throw JSON.stringify(error.response?.data);
         });
 
-export const fetchCancelOrder = (id: number) =>
+export const fetchCancelOrder = (values: CancelOrderProps) =>
     axiosInstance
-        .put('/order/cancel', { id })
+        .put('/order/cancel', values)
         .then((response) => response?.data)
         .catch((error: AxiosError<Record<string, string>>) => {
             throw JSON.stringify(error.response?.data);
         });
 
-export const fetchHideOrder = (id: number) =>
+export const fetchHideOrder = (values: HideOrderProps) =>
     axiosInstance
-        .put('/order/hide', { id })
+        .put('/order/hide', values)
+        .then((response) => response?.data)
+        .catch((error: AxiosError<Record<string, string>>) => {
+            throw JSON.stringify(error.response?.data);
+        });
+
+export const fetchDeliveryOrder = (values: DeliveryOrderProps) =>
+    axiosInstance
+        .put('/order/delivery', values)
         .then((response) => response?.data)
         .catch((error: AxiosError<Record<string, string>>) => {
             throw JSON.stringify(error.response?.data);
