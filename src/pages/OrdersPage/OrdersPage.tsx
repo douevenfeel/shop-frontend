@@ -1,31 +1,36 @@
 import { Navigation } from 'components/Navigation';
 import { OrderCard } from 'components/OrderCard';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import React, { useEffect, useState } from 'react';
+import { useAppSelector, useAppDispatch } from 'hooks/redux';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllOrdersAction } from 'store/actions/orderAction';
-import { Button, Container, Page, Paragraph } from 'utils/styles';
+import { changePageOrder } from 'store/reducers/orderReducer';
+import { Page, Paragraph, Container, Button } from 'utils/styles';
 import { OrdersContainer } from './OrdersPage.style';
 
 export const OrdersPage = () => {
-    const { orders, fetchActionStatus, loading } = useAppSelector((store) => store.order);
+    const { orders, count, limit, page, fetchActionStatus, loading } = useAppSelector((store) => store.order);
     const { authorized } = useAppSelector((store) => store.user);
     const [params, setParams] = useState({});
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+    const handlePage = (page: number) => {
+        dispatch(changePageOrder(page));
+    };
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             !authorized && dispatch(fetchRefreshAction());
         } else {
-            !authorized && navigate('/shop');
+            !authorized && navigate(-1);
         }
     }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
-        dispatch(fetchGetAllOrdersAction(params));
-    }, [dispatch, fetchActionStatus, params]);
+        dispatch(fetchGetAllOrdersAction({ page, ...params }));
+    }, [dispatch, fetchActionStatus, page, params]);
 
     const handleAll = () => {
         setParams({});
@@ -47,7 +52,9 @@ export const OrdersPage = () => {
         <Page alignItems='center' flexDirection='column'>
             {!loading &&
                 (orders.length === 0 && !params ? (
-                    <Paragraph fontSize='18px'>no orders yet</Paragraph>
+                    <>
+                        <Paragraph fontSize='18px'>no orders yet</Paragraph>
+                    </>
                 ) : (
                     <Container width='calc(100vw - 40px)' maxWidth='768px' justifyContent='center' gap='12px'>
                         <Container gap='12px'>
@@ -69,7 +76,7 @@ export const OrdersPage = () => {
                                 <OrderCard key={order.id} {...order} />
                             ))}
                         </OrdersContainer>
-                        <Navigation></Navigation>
+                        <Navigation count={count} limit={limit} page={page} handlePage={handlePage} />{' '}
                     </Container>
                 ))}
         </Page>

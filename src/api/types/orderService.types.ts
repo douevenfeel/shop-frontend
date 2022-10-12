@@ -1,4 +1,5 @@
 export interface GetAllOrdersProps {
+    page: number;
     canceled?: boolean;
     delivered?: boolean;
 }

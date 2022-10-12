@@ -15,6 +15,8 @@ export interface OrderState {
     fetchActionStatus: FetchStatus;
     orders: OrderModel[];
     count: number;
+    page: number;
+    limit: number;
     order: OrderDetailModel;
     loading: boolean;
     error: string;
@@ -25,6 +27,8 @@ const initialState: OrderState = {
     fetchActionStatus: FetchStatus.IDLE,
     orders: [] as OrderModel[],
     count: 0,
+    page: 1,
+    limit: 8,
     order: {} as OrderDetailModel,
     loading: false,
     error: '',
@@ -36,6 +40,9 @@ const orderSlice = createSlice({
     reducers: {
         resetOrder: (state) => {
             state.order = {} as OrderDetailModel;
+        },
+        changePageOrder: (state, { payload }) => {
+            state.page = Math.max(payload, 1);
         },
     },
     extraReducers: (builder) => {
@@ -126,6 +133,6 @@ const orderSlice = createSlice({
     },
 });
 
-export const { resetOrder } = orderSlice.actions;
+export const { resetOrder, changePageOrder } = orderSlice.actions;
 
 export const orderReducer = orderSlice.reducer;

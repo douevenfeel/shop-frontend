@@ -10,7 +10,6 @@ import {
     fetchUpdateDiscountDevice,
     fetchRemoveDiscountDevice,
     fetchUpdateCategoryTitleDevice,
-    fetchDeleteDevice,
     fetchDeleteCategoryDevice,
     fetchDeleteInfoDevice,
 } from 'api/services/deviceService';
@@ -25,7 +24,6 @@ import {
     DiscountDeviceProps,
     RemoveDiscountDeviceProps,
     UpdateCategoryTitleDeviceProps,
-    DeleteDeviceProps,
     DeleteCategoryDeviceProps,
     DeleteInfoDeviceProps,
 } from 'api/types/deviceService.types';
@@ -97,13 +95,6 @@ export const fetchUpdateCategoryTitleDeviceAction = createAsyncThunk(
     'updateCategoryTitleDevice/fetchUpdateCategoryTitleDevice',
     async (values: UpdateCategoryTitleDeviceProps) => {
         return await fetchUpdateCategoryTitleDevice(values);
-    }
-);
-
-export const fetchDeleteDeviceAction = createAsyncThunk(
-    'deleteDevice/fetchDeleteDevice',
-    async (values: DeleteDeviceProps) => {
-        return await fetchDeleteDevice(values);
     }
 );
 

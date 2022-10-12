@@ -10,7 +10,6 @@ import {
     DiscountDeviceProps,
     RemoveDiscountDeviceProps,
     UpdateCategoryTitleDeviceProps,
-    DeleteDeviceProps,
     DeleteCategoryDeviceProps,
     DeleteInfoDeviceProps,
 } from 'api/types/deviceService.types';
@@ -97,13 +96,6 @@ export const fetchUpdateCategoryTitleDevice = (values: UpdateCategoryTitleDevice
             throw JSON.stringify(error.response?.data);
         });
 
-export const fetchDeleteDevice = (values: DeleteDeviceProps) =>
-    axiosInstance
-        .delete(`/device`, { data: values })
-        .then((response) => response?.data)
-        .catch((error: AxiosError<Record<string, string>>) => {
-            throw JSON.stringify(error.response?.data);
-        });
 
 export const fetchDeleteCategoryDevice = (values: DeleteCategoryDeviceProps) =>
     axiosInstance

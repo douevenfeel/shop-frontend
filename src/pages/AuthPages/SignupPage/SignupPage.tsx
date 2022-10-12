@@ -4,8 +4,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { fetchSignupAction } from 'store/actions/authAction';
-import { resetUserError } from 'store/reducers/userReducer';
+import { fetchRefreshAction, fetchSignupAction } from 'store/actions/authAction';
 import { THEME } from 'utils/constants';
 import { Button, Form, Input, LinkStyled, Page, Paragraph } from 'utils/styles';
 import { Card } from '../AuthPage.style';
@@ -15,12 +14,12 @@ export const SignupPage = () => {
     const dispatch = useAppDispatch();
     const { error, authorized } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
-    useEffect(() => {
-        authorized && navigate('/shop');
 
-        return () => {
-            dispatch(resetUserError());
-        };
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            !authorized && dispatch(fetchRefreshAction());
+            authorized && navigate('/shop');
+        }
     }, [authorized, dispatch, navigate]);
 
     const onSubmit = (data: FieldValues) => {

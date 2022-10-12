@@ -24,9 +24,6 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        resetUserError: (state) => {
-            state.error = '';
-        },
         handleUserRole: (state, { payload }) => {
             state.role = payload;
         },
@@ -104,5 +101,5 @@ const userSlice = createSlice({
     },
 });
 
-export const { resetUserError, handleUserRole, refreshUserRole } = userSlice.actions;
+export const { handleUserRole, refreshUserRole } = userSlice.actions;
 export const userReducer = userSlice.reducer;

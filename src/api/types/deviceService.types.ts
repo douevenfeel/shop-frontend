@@ -52,9 +52,6 @@ export interface UpdateCategoryTitleDeviceProps {
     categoryTitle: string;
 }
 
-export interface DeleteDeviceProps {
-    id: number;
-}
 
 export interface DeleteCategoryDeviceProps {
     categoryId: number;

@@ -7,20 +7,24 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllDevicesAction } from 'store/actions/deviceAction';
-import { changePage } from 'store/reducers/deviceReducer';
+import { changePageDevice } from 'store/reducers/deviceReducer';
 import { Container, Page, Paragraph } from 'utils/styles';
 
 export const ShopPage = () => {
     const dispatch = useAppDispatch();
-    const { devices, page, order, loading } = useAppSelector((store) => store.device);
+    const { devices, count, limit, page, order, loading } = useAppSelector((store) => store.device);
     const { authorized } = useAppSelector((store) => store.user);
     const [brandTitle, setBrandTitle] = useState<string>('all');
     const navigate = useNavigate();
 
     const handleBrand = (e: React.MouseEvent<HTMLElement, MouseEvent>, brandTitle: string) => {
         e.stopPropagation();
-        dispatch(changePage(1));
+        dispatch(changePageDevice(1));
         setBrandTitle(brandTitle);
+    };
+
+    const handlePage = (page: number) => {
+        dispatch(changePageDevice(page));
     };
 
     useEffect(() => {
@@ -54,7 +58,7 @@ export const ShopPage = () => {
                                     />
                                 ))}
                             </Container>
-                            <Navigation />
+                            <Navigation count={count} limit={limit} page={page} handlePage={handlePage} />
                         </>
                     ))}
             </Container>

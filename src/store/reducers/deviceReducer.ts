@@ -32,7 +32,7 @@ const deviceSlice = createSlice({
         resetDevice: (state) => {
             state.device = {} as DeviceDetailModel;
         },
-        changePage: (state, { payload }) => {
+        changePageDevice: (state, { payload }) => {
             state.page = Math.max(payload, 1);
         },
         sortDevices: (state, { payload }) => {
@@ -76,6 +76,6 @@ const deviceSlice = createSlice({
     },
 });
 
-export const { resetDevice, changePage, sortDevices } = deviceSlice.actions;
+export const { resetDevice, changePageDevice, sortDevices } = deviceSlice.actions;
 
 export const deviceReducer = deviceSlice.reducer;
