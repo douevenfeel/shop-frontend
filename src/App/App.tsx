@@ -1,5 +1,6 @@
 import { Header } from 'components/Header';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { AdminPage } from 'pages/AdminPage';
 import { SigninPage } from 'pages/AuthPages/SigninPage';
 import { SignupPage } from 'pages/AuthPages/SignupPage';
 import { BasketPage } from 'pages/BasketPage';
@@ -12,13 +13,14 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { fetchRefreshAction } from 'store/actions/authAction';
 
 export const App = () => {
-    const { authorized } = useAppSelector((store) => store.user);
+    const { authorized, user } = useAppSelector((store) => store.user);
     const dispatch = useAppDispatch();
     useEffect(() => {
         if (localStorage.getItem('token')) {
             dispatch(fetchRefreshAction());
         }
     }, [dispatch]);
+    console.log(user.role);
 
     return (
         <>
@@ -26,6 +28,11 @@ export const App = () => {
             <Routes>
                 {authorized ? (
                     <>
+                        {user.role === 'ADMIN' && (
+                            <>
+                                <Route path='/admin' element={<AdminPage />} />
+                            </>
+                        )}
                         <Route path='/basket' element={<BasketPage />} />
                         <Route path='/orders' element={<OrdersPage />} />
                         <Route path='/order/:id' element={<OrderPage />} />

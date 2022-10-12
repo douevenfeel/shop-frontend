@@ -7,7 +7,7 @@ import { Container, LinkStyled, Paragraph } from 'utils/styles';
 
 export const Header = () => {
     const [loading, setLoading] = useState(true);
-    const { authorized } = useAppSelector((store) => store.user);
+    const { authorized, user } = useAppSelector((store) => store.user);
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
     const isAuth = pathname === '/auth/signup' || pathname === '/auth/signin';
@@ -51,6 +51,13 @@ export const Header = () => {
                     authorized &&
                     !loading && (
                         <>
+                            {user.role === 'ADMIN' && (
+                                <LinkStyled to='/admin'>
+                                    <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
+                                        Admin
+                                    </Paragraph>
+                                </LinkStyled>
+                            )}
                             <LinkStyled to='/basket'>
                                 <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
                                     Basket
