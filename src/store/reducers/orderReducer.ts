@@ -18,7 +18,6 @@ export interface OrderState {
     page: number;
     limit: number;
     order: OrderDetailModel;
-    loading: boolean;
     error: string;
 }
 
@@ -30,7 +29,6 @@ const initialState: OrderState = {
     page: 1,
     limit: 8,
     order: {} as OrderDetailModel,
-    loading: false,
     error: '',
 };
 
@@ -64,13 +62,11 @@ const orderSlice = createSlice({
         builder.addCase(fetchGetAllOrdersAction.pending, (state) => {
             console.log('fetchGetAllOrdersAction.pending');
             state.fetchStatus = FetchStatus.PENDING;
-            state.loading = true;
             state.error = '';
         });
         builder.addCase(fetchGetAllOrdersAction.fulfilled, (state, { payload }) => {
             console.log('fetchGetAllOrdersAction.fulfilled');
             state.fetchStatus = FetchStatus.FULFILLED;
-            state.loading = false;
             state.orders = payload.rows;
             state.count = payload.count;
             state.error = '';
@@ -78,26 +74,22 @@ const orderSlice = createSlice({
         builder.addCase(fetchGetAllOrdersAction.rejected, (state, { error }: any) => {
             console.log('fetchGetAllOrdersAction.rejected');
             state.fetchStatus = FetchStatus.REJECTED;
-            state.loading = false;
             state.error = JSON.parse(error.message);
         });
         builder.addCase(fetchGetOneOrderAction.pending, (state) => {
             console.log('fetchGetOneOrderAction.pending');
             state.fetchStatus = FetchStatus.PENDING;
-            state.loading = true;
             state.error = '';
         });
         builder.addCase(fetchGetOneOrderAction.fulfilled, (state, { payload }) => {
             console.log('fetchGetOneOrderAction.fulfilled');
             state.fetchStatus = FetchStatus.FULFILLED;
-            state.loading = false;
             state.order = payload;
             state.error = '';
         });
         builder.addCase(fetchGetOneOrderAction.rejected, (state, { error }: any) => {
             console.log('fetchGetOneOrderAction.rejected');
             state.fetchStatus = FetchStatus.REJECTED;
-            state.loading = false;
             state.error = JSON.parse(error.message);
         });
         builder.addCase(fetchCancelOrderAction.pending, (state) => {
