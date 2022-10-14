@@ -10,7 +10,6 @@ export interface UserState {
     authorized: boolean;
     users: UserModel[];
     user: UserModel;
-    role: Role;
     error: string | any;
 }
 
@@ -19,23 +18,13 @@ const initialState: UserState = {
     authorized: false,
     users: [],
     user: {} as UserModel,
-    role: 'USER',
     error: '',
 };
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {
-        handleUserRole: (state, { payload }) => {
-            state.role = payload;
-        },
-        refreshUserRole: (state) => {
-            if (state.user.role === 'USER') {
-                state.role = 'USER';
-            }
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchSignupAction.pending, (state) => {
             console.log('fetchSignupAction.pending');
@@ -135,5 +124,4 @@ const userSlice = createSlice({
     },
 });
 
-export const { handleUserRole, refreshUserRole } = userSlice.actions;
 export const userReducer = userSlice.reducer;
