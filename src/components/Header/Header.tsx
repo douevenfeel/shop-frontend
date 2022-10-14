@@ -5,11 +5,10 @@ import { useLocation } from 'react-router-dom';
 import { fetchLogoutAction } from 'store/actions/authAction';
 import { handleUserRole, refreshUserRole } from 'store/reducers/userReducer';
 import { THEME } from 'utils/constants';
-import { FetchStatus } from 'utils/fetchStatus.types';
 import { Container, LinkStyled, Paragraph } from 'utils/styles';
 
 export const Header = () => {
-    const { authorized, user, role, fetchStatus } = useAppSelector((store) => store.user);
+    const { authorized, user, role } = useAppSelector((store) => store.user);
     const [nextRole, setNextRole] = useState<Role>('ADMIN');
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
