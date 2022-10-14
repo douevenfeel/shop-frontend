@@ -10,7 +10,7 @@ import { Page, Paragraph, Container, Button } from 'utils/styles';
 import { OrdersContainer } from './OrdersPage.style';
 
 export const OrdersPage = () => {
-    const { orders, count, limit, page, fetchActionStatus, loading } = useAppSelector((store) => store.order);
+    const { orders, count, limit, page, fetchActionStatus } = useAppSelector((store) => store.order);
     const { authorized } = useAppSelector((store) => store.user);
     const [params, setParams] = useState({});
     const dispatch = useAppDispatch();
@@ -50,35 +50,34 @@ export const OrdersPage = () => {
 
     return (
         <Page alignItems='center' flexDirection='column'>
-            {!loading &&
-                (orders.length === 0 && !params ? (
-                    <>
-                        <Paragraph fontSize='18px'>no orders yet</Paragraph>
-                    </>
-                ) : (
-                    <Container width='calc(100vw - 40px)' maxWidth='768px' justifyContent='center' gap='12px'>
-                        <Container gap='12px'>
-                            <Button padding='4px 10px' fontSize='14px' onClick={handleAll}>
-                                all
-                            </Button>
-                            <Button padding='4px 10px' fontSize='14px' onClick={handleDelivered}>
-                                delivered
-                            </Button>
-                            <Button padding='4px 10px' fontSize='14px' onClick={handleInDelivery}>
-                                in delivery
-                            </Button>
-                            <Button padding='4px 10px' fontSize='14px' onClick={handleCanceled}>
-                                canceled
-                            </Button>
-                        </Container>
-                        <OrdersContainer>
-                            {orders.map((order) => (
-                                <OrderCard key={order.id} {...order} />
-                            ))}
-                        </OrdersContainer>
-                        <Navigation count={count} limit={limit} page={page} handlePage={handlePage} />{' '}
+            {orders.length === 0 && !params ? (
+                <>
+                    <Paragraph fontSize='18px'>no orders yet</Paragraph>
+                </>
+            ) : (
+                <Container width='calc(100vw - 40px)' maxWidth='768px' justifyContent='center' gap='12px'>
+                    <Container gap='12px'>
+                        <Button padding='4px 10px' fontSize='14px' onClick={handleAll}>
+                            all
+                        </Button>
+                        <Button padding='4px 10px' fontSize='14px' onClick={handleDelivered}>
+                            delivered
+                        </Button>
+                        <Button padding='4px 10px' fontSize='14px' onClick={handleInDelivery}>
+                            in delivery
+                        </Button>
+                        <Button padding='4px 10px' fontSize='14px' onClick={handleCanceled}>
+                            canceled
+                        </Button>
                     </Container>
-                ))}
+                    <OrdersContainer>
+                        {orders.map((order) => (
+                            <OrderCard key={order.id} {...order} />
+                        ))}
+                    </OrdersContainer>
+                    <Navigation count={count} limit={limit} page={page} handlePage={handlePage} />{' '}
+                </Container>
+            )}
         </Page>
     );
 };

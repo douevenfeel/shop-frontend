@@ -14,14 +14,12 @@ export interface BasketState {
     fetchStatus: FetchStatus;
     fetchActionStatus: FetchStatus;
     basket: BasketModel[];
-    loading: boolean;
 }
 
 const initialState: BasketState = {
     fetchStatus: FetchStatus.IDLE,
     fetchActionStatus: FetchStatus.IDLE,
     basket: [] as BasketModel[],
-    loading: false,
 };
 
 const basketSlice = createSlice({
@@ -32,18 +30,15 @@ const basketSlice = createSlice({
         builder.addCase(fetchGetBasketAction.pending, (state) => {
             console.log('fetchGetBasketAction.pending');
             state.fetchStatus = FetchStatus.PENDING;
-            state.loading = true;
         });
         builder.addCase(fetchGetBasketAction.fulfilled, (state, { payload }) => {
             console.log('fetchGetBasketAction.fulfilled');
             state.fetchStatus = FetchStatus.FULFILLED;
             state.basket = payload;
-            state.loading = false;
         });
         builder.addCase(fetchGetBasketAction.rejected, (state) => {
             console.log('fetchGetBasketAction.rejected');
             state.fetchStatus = FetchStatus.REJECTED;
-            state.loading = false;
         });
         builder.addCase(fetchAddDeviceBasketAction.pending, (state) => {
             console.log('fetchAddDeviceBasketAction.pending');

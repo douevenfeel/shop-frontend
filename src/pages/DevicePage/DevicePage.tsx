@@ -12,7 +12,7 @@ import { DevicePageContainer } from './DevicePage.style';
 
 export const DevicePage = () => {
     const { authorized } = useAppSelector((store) => store.user);
-    const { device, loading } = useAppSelector((store) => store.device);
+    const { device } = useAppSelector((store) => store.device);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
@@ -43,7 +43,7 @@ export const DevicePage = () => {
 
     return (
         <Page justifyContent='center'>
-            {!loading && device && (
+            {device && (
                 <DevicePageContainer>
                     <Container gap='16px' flexDirection='column' justifyContent='center' alignItems='flex-start'>
                         <Image

@@ -11,7 +11,7 @@ import { Button, Container, Page, Paragraph } from 'utils/styles';
 import { OrderPageStyled } from './OrderPage.style';
 
 export const OrderPage = () => {
-    const { order, loading, fetchActionStatus } = useAppSelector((store) => store.order);
+    const { order, fetchActionStatus } = useAppSelector((store) => store.order);
     const { authorized } = useAppSelector((store) => store.user);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -47,46 +47,44 @@ export const OrderPage = () => {
     };
     return (
         <Page justifyContent='center' alignItems='center'>
-            {!loading && (
-                <OrderPageStyled>
-                    <Paragraph>Order number: {order.id}</Paragraph>
-                    <Paragraph>Order date: {dayjs(order.orderDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
-                    {!order.canceled && (
-                        <Paragraph>Delivery date: {dayjs(order.deliveryDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
+            <OrderPageStyled>
+                <Paragraph>Order number: {order.id}</Paragraph>
+                <Paragraph>Order date: {dayjs(order.orderDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
+                {!order.canceled && (
+                    <Paragraph>Delivery date: {dayjs(order.deliveryDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
+                )}
+                <Paragraph>
+                    Status:{' '}
+                    {order.canceled ? (
+                        <Paragraph as='span' color={THEME.red}>
+                            canceled
+                        </Paragraph>
+                    ) : order.delivered ? (
+                        <Paragraph as='span' color={THEME.green}>
+                            delivered
+                        </Paragraph>
+                    ) : (
+                        <Paragraph as='span' color={THEME.blue}>
+                            in delivery
+                        </Paragraph>
                     )}
-                    <Paragraph>
-                        Status:{' '}
-                        {order.canceled ? (
-                            <Paragraph as='span' color={THEME.red}>
-                                canceled
-                            </Paragraph>
-                        ) : order.delivered ? (
-                            <Paragraph as='span' color={THEME.green}>
-                                delivered
-                            </Paragraph>
-                        ) : (
-                            <Paragraph as='span' color={THEME.blue}>
-                                in delivery
-                            </Paragraph>
-                        )}
-                    </Paragraph>
-                    <Container justifyContent='center' alignItems='center' gap='4px' margin='0 0 8px' width='100%'>
-                        {order.orderDevices?.map((orderDevice) => (
-                            <DeviceCardOrder key={orderDevice.id} {...orderDevice} />
-                        ))}
-                    </Container>
-                    {(order.delivered || order.canceled) && (
-                        <Button backgroundColor={THEME.lighterGray} onClick={handleHide}>
-                            hide
-                        </Button>
-                    )}
-                    {!order.canceled && !order.delivered && (
-                        <Button backgroundColor={THEME.red} onClick={handleCancel}>
-                            cancel
-                        </Button>
-                    )}
-                </OrderPageStyled>
-            )}
+                </Paragraph>
+                <Container justifyContent='center' alignItems='center' gap='4px' margin='0 0 8px' width='100%'>
+                    {order.orderDevices?.map((orderDevice) => (
+                        <DeviceCardOrder key={orderDevice.id} {...orderDevice} />
+                    ))}
+                </Container>
+                {(order.delivered || order.canceled) && (
+                    <Button backgroundColor={THEME.lighterGray} onClick={handleHide}>
+                        hide
+                    </Button>
+                )}
+                {!order.canceled && !order.delivered && (
+                    <Button backgroundColor={THEME.red} onClick={handleCancel}>
+                        cancel
+                    </Button>
+                )}
+            </OrderPageStyled>
         </Page>
     );
 };

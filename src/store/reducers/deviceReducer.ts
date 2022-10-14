@@ -24,7 +24,6 @@ export interface DeviceState {
     page: number;
     limit: number;
     order: { title: string; order: [string, string] };
-    loading: boolean;
 }
 
 const initialState: DeviceState = {
@@ -35,7 +34,6 @@ const initialState: DeviceState = {
     page: 1,
     limit: 12,
     order: { title: 'default', order: ['image', 'DESC'] },
-    loading: false,
 };
 
 const deviceSlice = createSlice({

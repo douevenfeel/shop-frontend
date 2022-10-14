@@ -10,7 +10,7 @@ import { Button, Container, Page, Paragraph } from 'utils/styles';
 
 export const BasketPage = () => {
     const dispatch = useAppDispatch();
-    const { basket, loading, fetchActionStatus } = useAppSelector((store) => store.basket);
+    const { basket, fetchActionStatus } = useAppSelector((store) => store.basket);
     const { authorized } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
 
@@ -35,8 +35,7 @@ export const BasketPage = () => {
 
     return (
         <Page alignItems='center' flexDirection='column' gap='12px'>
-            {!loading &&
-                authorized &&
+            {authorized &&
                 (basket.length === 0 ? (
                     <Paragraph fontSize='18px'>no phones in the basket yet</Paragraph>
                 ) : (

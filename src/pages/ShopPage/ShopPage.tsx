@@ -12,7 +12,7 @@ import { Container, Page, Paragraph } from 'utils/styles';
 
 export const ShopPage = () => {
     const dispatch = useAppDispatch();
-    const { devices, count, limit, page, order, loading } = useAppSelector((store) => store.device);
+    const { devices, count, limit, page, order } = useAppSelector((store) => store.device);
     const { authorized } = useAppSelector((store) => store.user);
     const [brandTitle, setBrandTitle] = useState<string>('all');
     const navigate = useNavigate();
@@ -41,26 +41,25 @@ export const ShopPage = () => {
     return (
         <Page justifyContent='center'>
             <Container flexDirection='column' alignItems='center'>
-                {!loading &&
-                    (devices && devices.length === 0 ? (
-                        <Paragraph fontSize='18px'>no phones in the shop yet</Paragraph>
-                    ) : (
-                        <>
-                            <ShopPanel brandTitle={brandTitle} removeBrand={() => setBrandTitle('all')} />
-                            <Container justifyContent='center' padding='0 auto' gap='20px' maxWidth='1440px'>
-                                {devices?.map((device: DeviceModel) => (
-                                    <DeviceCard
-                                        device={device}
-                                        key={device.id}
-                                        handleBrand={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-                                            handleBrand(e, device.brand.title)
-                                        }
-                                    />
-                                ))}
-                            </Container>
-                            <Navigation count={count} limit={limit} page={page} handlePage={handlePage} />
-                        </>
-                    ))}
+                {devices && devices.length === 0 ? (
+                    <Paragraph fontSize='18px'>no phones in the shop yet</Paragraph>
+                ) : (
+                    <>
+                        <ShopPanel brandTitle={brandTitle} removeBrand={() => setBrandTitle('all')} />
+                        <Container justifyContent='center' padding='0 auto' gap='20px' maxWidth='1440px'>
+                            {devices?.map((device: DeviceModel) => (
+                                <DeviceCard
+                                    device={device}
+                                    key={device.id}
+                                    handleBrand={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+                                        handleBrand(e, device.brand.title)
+                                    }
+                                />
+                            ))}
+                        </Container>
+                        <Navigation count={count} limit={limit} page={page} handlePage={handlePage} />
+                    </>
+                )}
             </Container>
         </Page>
     );
