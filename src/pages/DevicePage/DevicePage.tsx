@@ -20,8 +20,6 @@ export const DevicePage = () => {
     useEffect(() => {
         if (localStorage.getItem('token')) {
             !authorized && dispatch(fetchRefreshAction());
-        } else {
-            !authorized && navigate('/shop');
         }
     }, [authorized, dispatch, navigate]);
 
