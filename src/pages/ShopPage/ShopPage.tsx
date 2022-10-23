@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllDevicesAction } from 'store/actions/deviceAction';
-import { changePageDevice, findDevice } from 'store/reducers/deviceReducer';
+import { changePageDevice } from 'store/reducers/deviceReducer';
 import { Container, Page, Paragraph } from 'utils/styles';
 
 export const ShopPage = () => {
