@@ -7,12 +7,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllDevicesAction } from 'store/actions/deviceAction';
-import { changePageDevice } from 'store/reducers/deviceReducer';
+import { changePageDevice, findDevice } from 'store/reducers/deviceReducer';
 import { Container, Page, Paragraph } from 'utils/styles';
 
 export const ShopPage = () => {
     const dispatch = useAppDispatch();
-    const { devices, count, limit, page, order } = useAppSelector((store) => store.device);
+    const { devices, count, limit, page, order, title } = useAppSelector((store) => store.device);
     const { authorized } = useAppSelector((store) => store.user);
     const [brandTitle, setBrandTitle] = useState<string>('all');
     const navigate = useNavigate();
@@ -34,14 +34,14 @@ export const ShopPage = () => {
     }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
-        const values = { page, brandTitle, order: order.order };
+        const values = { page, brandTitle, order: order.order, title };
         dispatch(fetchGetAllDevicesAction(values));
-    }, [brandTitle, dispatch, order, page]);
+    }, [brandTitle, dispatch, order, page, title]);
 
     return (
         <Page justifyContent='center'>
             <Container flexDirection='column' alignItems='center'>
-                {devices && devices.length === 0 ? (
+                {devices && devices.length === 0 && !title ? (
                     <Paragraph fontSize='18px'>no phones in the shop yet</Paragraph>
                 ) : (
                     <>

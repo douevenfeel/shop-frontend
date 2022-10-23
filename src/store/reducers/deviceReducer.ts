@@ -23,6 +23,7 @@ export interface DeviceState {
     count: number;
     page: number;
     limit: number;
+    title: string;
     order: { title: string; order: [string, string] };
 }
 
@@ -33,6 +34,7 @@ const initialState: DeviceState = {
     count: 0,
     page: 1,
     limit: 12,
+    title: 'all',
     order: { title: 'default', order: ['image', 'DESC'] },
 };
 
@@ -48,6 +50,9 @@ const deviceSlice = createSlice({
         },
         sortDevices: (state, { payload }) => {
             state.order = payload;
+        },
+        findDevice: (state, { payload }) => {
+            payload ? (state.title = payload) : (state.title = 'all');
         },
     },
     extraReducers: (builder) => {
@@ -201,6 +206,6 @@ const deviceSlice = createSlice({
     },
 });
 
-export const { resetDevice, changePageDevice, sortDevices } = deviceSlice.actions;
+export const { resetDevice, changePageDevice, sortDevices, findDevice } = deviceSlice.actions;
 
 export const deviceReducer = deviceSlice.reducer;

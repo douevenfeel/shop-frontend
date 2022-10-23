@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserModel } from 'models/userModel';
 import { FetchStatus } from 'utils/fetchStatus.types';
-import { Role } from 'api/types/userService.types';
 import { fetchSignupAction, fetchSigninAction, fetchLogoutAction, fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllUsersAction, fetchUpdateUserRoleAction } from 'store/actions/userAction';
 

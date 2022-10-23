@@ -50,9 +50,7 @@ export const DevicePage = () => {
                             alt={device.title}
                         />
                         <Container flexDirection='column'>
-                            <Paragraph fontSize='20px'>
-                                {device.brand?.title} {device.title}
-                            </Paragraph>
+                            <Paragraph fontSize='20px'>{device.title}</Paragraph>
                             {device.oldPrice === 0 ? (
                                 <Paragraph fontWeight='500' fontSize='20px'>
                                     {device.price} р.

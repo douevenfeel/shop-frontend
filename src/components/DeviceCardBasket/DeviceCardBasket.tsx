@@ -46,7 +46,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
                         fontSize='18px'
                         color={selected && device.available ? THEME.white : THEME.lighterGray}
                     >
-                        {device.brand.title} {device.title}
+                        {device.title}
                     </Paragraph>
                     <Image
                         height='280px'
