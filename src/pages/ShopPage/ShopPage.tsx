@@ -43,6 +43,11 @@ export const ShopPage = () => {
             <Container flexDirection='column' alignItems='center'>
                 {devices && devices.length === 0 && !title ? (
                     <Paragraph fontSize='18px'>no phones in the shop yet</Paragraph>
+                ) : devices && devices.length === 0 ? (
+                    <>
+                        <ShopPanel brandTitle={brandTitle} removeBrand={() => setBrandTitle('all')} />
+                        <Paragraph fontSize='18px'>no phones</Paragraph>
+                    </>
                 ) : (
                     <>
                         <ShopPanel brandTitle={brandTitle} removeBrand={() => setBrandTitle('all')} />
