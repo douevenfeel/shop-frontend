@@ -70,7 +70,7 @@ export const fetchUpdateAvailableDeviceAction = createAsyncThunk(
     }
 );
 
-export const fetchUpdatePriceDeviceDeviceAction = createAsyncThunk(
+export const fetchUpdatePriceDeviceAction = createAsyncThunk(
     'updatePriceDevice/fetchUpdatePriceDevice',
     async (values: UpdatePriceDeviceProps) => {
         return await fetchUpdatePriceDevice(values);

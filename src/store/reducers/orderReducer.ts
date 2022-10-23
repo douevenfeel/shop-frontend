@@ -6,6 +6,7 @@ import {
     fetchGetOneOrderAction,
     fetchCancelOrderAction,
     fetchHideOrderAction,
+    fetchDeliveryOrderAction,
 } from 'store/actions/orderAction';
 
 import { FetchStatus } from 'utils/fetchStatus.types';
@@ -119,6 +120,21 @@ const orderSlice = createSlice({
         });
         builder.addCase(fetchHideOrderAction.rejected, (state, { error }: any) => {
             console.log('fetchHideOrderAction.rejected');
+            state.fetchActionStatus = FetchStatus.REJECTED;
+            state.error = JSON.parse(error.message);
+        });
+        builder.addCase(fetchDeliveryOrderAction.pending, (state) => {
+            console.log('fetchDeliveryOrderAction.pending');
+            state.fetchActionStatus = FetchStatus.PENDING;
+            state.error = '';
+        });
+        builder.addCase(fetchDeliveryOrderAction.fulfilled, (state) => {
+            console.log('fetchDeliveryOrderAction.fulfilled');
+            state.fetchActionStatus = FetchStatus.FULFILLED;
+            state.error = '';
+        });
+        builder.addCase(fetchDeliveryOrderAction.rejected, (state, { error }: any) => {
+            console.log('fetchDeliveryOrderAction.rejected');
             state.fetchActionStatus = FetchStatus.REJECTED;
             state.error = JSON.parse(error.message);
         });

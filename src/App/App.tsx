@@ -1,4 +1,5 @@
 import { Header } from 'components/Header';
+import { AdminPage } from 'pages/AdminPage';
 import { SigninPage } from 'pages/AuthPages/SigninPage';
 import { SignupPage } from 'pages/AuthPages/SignupPage';
 import { BasketPage } from 'pages/BasketPage';
@@ -13,6 +14,7 @@ export const App = () => {
         <>
             <Header />
             <Routes>
+                <Route path='/admin' element={<AdminPage />} />
                 <Route path='/basket' element={<BasketPage />} />
                 <Route path='/orders' element={<OrdersPage />} />
                 <Route path='/order/:id' element={<OrderPage />} />

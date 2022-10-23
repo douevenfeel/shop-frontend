@@ -16,7 +16,7 @@ export const DeviceCardOrder: React.FC<DeviceCardOrderProps> = ({ id, count, pri
             <Paragraph>{device.title}</Paragraph>
             <Image height='120px' src={`${process.env.REACT_APP_BACKEND_URL}${device.image}`} alt={device.title} />
             <Paragraph>
-                {count > 1 && `x${count * 4}`} {price}р.
+                {count > 1 && `x${count}`} {price}р.
             </Paragraph>
         </DeviceCardOrderStyled>
     );
