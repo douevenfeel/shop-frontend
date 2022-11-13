@@ -113,6 +113,12 @@ export const Input = styled.input<InputProps>`
     border-radius: 8px;
     background-color: ${(props) => props.backgroundColor || THEME.lighterGray};
     outline: none;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 `;
 
 export const LinkStyled = styled(Link)`

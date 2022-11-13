@@ -24,6 +24,8 @@ export interface DeviceState {
     page: number;
     limit: number;
     title: string;
+    fromPrice: number;
+    toPrice: number;
     order: { title: string; order: [string, string] };
 }
 
@@ -35,6 +37,8 @@ const initialState: DeviceState = {
     page: 1,
     limit: 12,
     title: 'all',
+    fromPrice: 0,
+    toPrice: 0,
     order: { title: 'default', order: ['image', 'DESC'] },
 };
 
@@ -52,7 +56,9 @@ const deviceSlice = createSlice({
             state.order = payload;
         },
         findDevice: (state, { payload }) => {
-            payload ? (state.title = payload) : (state.title = 'all');
+            payload.title ? (state.title = payload.title) : (state.title = 'all');
+            payload.fromPrice ? (state.fromPrice = payload.fromPrice) : (state.fromPrice = 0);
+            payload.toPrice ? (state.toPrice = payload.toPrice) : (state.toPrice = 0);
         },
     },
     extraReducers: (builder) => {

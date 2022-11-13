@@ -1,5 +1,5 @@
 import { useAppDispatch } from 'hooks/redux';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     fetchChangeCountBasketAction,
@@ -16,17 +16,20 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const changeCount = (count: number) => {
-        dispatch(fetchChangeCountBasketAction({ deviceId: device.id, count }));
-    };
+    const changeCount = useCallback(
+        (count: number) => {
+            dispatch(fetchChangeCountBasketAction({ deviceId: device.id, count }));
+        },
+        [device.id, dispatch]
+    );
 
-    const changeSelected = () => {
+    const changeSelected = useCallback(() => {
         device.available && dispatch(fetchChangeSelectedBasketAction({ deviceId: device.id, selected: !selected }));
-    };
+    }, [device.available, device.id, dispatch, selected]);
 
-    const handleDelete = () => {
+    const handleDelete = useCallback(() => {
         dispatch(fetchDeleteDeviceBasketAction({ deviceId: device.id }));
-    };
+    }, [device.id, dispatch]);
 
     const handleClick = () => {
         navigate(`/device/${device.id}`);

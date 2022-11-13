@@ -12,7 +12,7 @@ import { Container, Page, Paragraph } from 'utils/styles';
 
 export const ShopPage = () => {
     const dispatch = useAppDispatch();
-    const { devices, count, limit, page, order, title } = useAppSelector((store) => store.device);
+    const { devices, count, limit, page, order, title, fromPrice, toPrice } = useAppSelector((store) => store.device);
     const { authorized } = useAppSelector((store) => store.user);
     const [brandTitle, setBrandTitle] = useState<string>('all');
     const navigate = useNavigate();
@@ -34,9 +34,9 @@ export const ShopPage = () => {
     }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
-        const values = { page, brandTitle, order: order.order, title };
+        const values = { page, brandTitle, order: order.order, title, fromPrice, toPrice };
         dispatch(fetchGetAllDevicesAction(values));
-    }, [brandTitle, dispatch, order, page, title]);
+    }, [brandTitle, dispatch, order, page, title, fromPrice, toPrice]);
 
     return (
         <Page justifyContent='center'>
