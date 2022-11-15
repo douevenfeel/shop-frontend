@@ -1,14 +1,14 @@
+import { DevicePageContainer } from './DevicePage.style';
 import { Category } from 'components/Category';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchAddDeviceBasketAction } from 'store/actions/basketAction';
 import { fetchGetOneDeviceAction } from 'store/actions/deviceAction';
 import { resetDevice } from 'store/reducers/deviceReducer';
 import { THEME } from 'utils/constants';
-import { Button, Container, Image, Page, Paragraph } from 'utils/styles';
-import { DevicePageContainer } from './DevicePage.style';
+import { Button, Container, Image, LinkStyled, Page, Paragraph } from 'utils/styles';
 
 export const DevicePage = () => {
     const { authorized } = useAppSelector((store) => store.user);
@@ -44,6 +44,10 @@ export const DevicePage = () => {
             {device && (
                 <DevicePageContainer>
                     <Container gap='16px' flexDirection='column' justifyContent='center' alignItems='flex-start'>
+                        <Paragraph>
+                            <LinkStyled to='/'>Main</LinkStyled> &gt;
+                            <LinkStyled to={`/device/${device.id}`}> {device && device.title}</LinkStyled>
+                        </Paragraph>
                         <Image
                             height='440px'
                             src={`${process.env.REACT_APP_BACKEND_URL}${device.image}`}

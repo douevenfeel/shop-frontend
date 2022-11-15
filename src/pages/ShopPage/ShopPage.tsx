@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllDevicesAction } from 'store/actions/deviceAction';
 import { changePageDevice } from 'store/reducers/deviceReducer';
-import { Container, Page, Paragraph } from 'utils/styles';
+import { Container, LinkStyled, Page, Paragraph } from 'utils/styles';
 
 export const ShopPage = () => {
     const dispatch = useAppDispatch();
@@ -41,6 +41,7 @@ export const ShopPage = () => {
     return (
         <Page justifyContent='center'>
             <Container flexDirection='column' alignItems='center'>
+                <LinkStyled to='/'>Main</LinkStyled>
                 {devices && devices.length === 0 && !title ? (
                     <Paragraph fontSize='18px'>no phones in the shop yet</Paragraph>
                 ) : devices && devices.length === 0 ? (

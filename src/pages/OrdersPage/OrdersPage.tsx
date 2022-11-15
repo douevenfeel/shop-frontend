@@ -1,3 +1,4 @@
+import { OrdersContainer } from './OrdersPage.style';
 import { Navigation } from 'components/Navigation';
 import { OrderCard } from 'components/OrderCard';
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
@@ -7,7 +8,6 @@ import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllOrdersAction } from 'store/actions/orderAction';
 import { changePageOrder } from 'store/reducers/orderReducer';
 import { Page, Paragraph, Container, Button } from 'utils/styles';
-import { OrdersContainer } from './OrdersPage.style';
 
 export const OrdersPage = () => {
     const { orders, count, limit, page, fetchActionStatus } = useAppSelector((store) => store.order);

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useLocation } from 'react-router-dom';
 import { fetchLogoutAction } from 'store/actions/authAction';
 import { THEME } from 'utils/constants';
-import { Container, Input, LinkStyled, Paragraph } from 'utils/styles';
+import { Container, LinkStyled, Paragraph } from 'utils/styles';
 
 export const Header = () => {
     const { authorized, user } = useAppSelector((store) => store.user);

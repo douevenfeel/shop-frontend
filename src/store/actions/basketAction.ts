@@ -13,9 +13,12 @@ import {
     DeleteDeviceBasketProps,
 } from 'api/types/basketService.types';
 
-export const fetchGetBasketAction = createAsyncThunk('getBasket/fetchGetBasket', async () => {
-    return await fetchGetBasket();
-});
+export const fetchGetBasketAction = createAsyncThunk(
+    'getBasket/fetchGetBasket',
+    async () => {
+        return await fetchGetBasket();
+    }
+);
 
 export const fetchAddDeviceBasketAction = createAsyncThunk(
     'addDeviceBasket/fetchAddDevice',
