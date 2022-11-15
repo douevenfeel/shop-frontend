@@ -2,9 +2,9 @@ import { Dropdown } from 'components/Dropdown';
 import { DropdownValueProps } from 'components/Dropdown/Dropdown.types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useDebounce } from 'hooks/useDebounce';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { findDevice, sortDevices } from 'store/reducers/deviceReducer';
-import { Button, Container, Input } from 'utils/styles';
+import { Button, Container, Input, Paragraph } from 'utils/styles';
 
 import { ShopPanelProps } from './ShopPanel.types';
 
@@ -17,16 +17,28 @@ const orderValues: DropdownValueProps[] = [
 export const ShopPanel: React.FC<ShopPanelProps> = ({ brandTitle, removeBrand }) => {
     const { order } = useAppSelector((store) => store.device);
     const dispatch = useAppDispatch();
-    const [value, setValue] = useState('');
-    const debouncedValue = useDebounce(value);
+    const [title, setTitle] = useState<string>('');
+    const [fromPrice, setFromPrice] = useState<number | string>('');
+    const [toPrice, setToPrice] = useState<number | string>('');
+    const debouncedTitle = useDebounce(title);
+    const debouncedFromPrice = useDebounce(fromPrice);
+    const debouncedToPrice = useDebounce(toPrice);
 
     const handleDropdownValue = (value: DropdownValueProps) => {
         dispatch(sortDevices(value));
     };
 
     useEffect(() => {
-        dispatch(findDevice(debouncedValue));
-    }, [debouncedValue, dispatch]);
+        dispatch(findDevice({ title: debouncedTitle, fromPrice: debouncedFromPrice, toPrice: debouncedToPrice }));
+    }, [debouncedFromPrice, debouncedTitle, debouncedToPrice, dispatch]);
+
+    const handleFromPrice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        +e.target.value === 0 ? setFromPrice('') : setFromPrice(+e.target.value);
+    }, []);
+
+    const handleToPrice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        +e.target.value === 0 ? setToPrice('') : setToPrice(+e.target.value);
+    }, []);
 
     return (
         <Container
@@ -40,7 +52,29 @@ export const ShopPanel: React.FC<ShopPanelProps> = ({ brandTitle, removeBrand })
             <Button onClick={() => removeBrand()} height='28px' padding='4px 8px'>
                 Brand {brandTitle === 'all' ? '' : brandTitle}
             </Button>
-            <Input placeholder='Enter device...' onChange={(e) => setValue(e.target.value)} />
+            <Container gap='8px'>
+                <Container gap='8px' alignItems='center'>
+                    <Paragraph>from</Paragraph>
+                    <Input
+                        placeholder='From price...'
+                        type='number'
+                        value={fromPrice.toString()}
+                        onChange={handleFromPrice}
+                        width='160px'
+                    />
+                </Container>
+                <Container gap='8px' alignItems='center'>
+                    <Paragraph>to</Paragraph>
+                    <Input
+                        placeholder='To price...'
+                        type='number'
+                        value={toPrice.toString()}
+                        onChange={handleToPrice}
+                        width='160px'
+                    />
+                </Container>
+            </Container>
+            <Input placeholder='Enter device...' value={title} onChange={(e) => setTitle(e.target.value)} />
             <Dropdown handleDropdownValue={handleDropdownValue} value={order} valuesArr={orderValues} />
         </Container>
     );
