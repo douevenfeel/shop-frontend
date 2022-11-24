@@ -1,4 +1,3 @@
-import { ManagerUserPanelProps } from './ManagerUserPanel.types';
 import { useAppDispatch } from 'hooks/redux';
 import { useDebounce } from 'hooks/useDebounce';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -6,7 +5,7 @@ import { findUser } from 'store/reducers/userReducer';
 import { THEME } from 'utils/constants';
 import { Container, Input, Paragraph } from 'utils/styles';
 
-export const ManagerUserPanel: React.FC<ManagerUserPanelProps> = () => {
+export const ManagerUserPanel = () => {
     const dispatch = useAppDispatch();
     const [searchBy, setSearchBy] = useState('email');
     const [searchValue, setSearchValue] = useState('');

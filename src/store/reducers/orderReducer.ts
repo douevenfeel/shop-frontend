@@ -7,8 +7,8 @@ import {
     fetchCancelOrderAction,
     fetchHideOrderAction,
     fetchDeliveryOrderAction,
+    fetchGetAllOrdersManagerAction,
 } from 'store/actions/orderAction';
-
 import { FetchStatus } from 'utils/fetchStatus.types';
 
 export interface OrderState {
@@ -18,6 +18,9 @@ export interface OrderState {
     count: number;
     page: number;
     limit: number;
+    userId: number;
+    dateFrom: string;
+    dateTo: string;
     order: OrderDetailModel;
     error: string;
 }
@@ -29,6 +32,9 @@ const initialState: OrderState = {
     count: 0,
     page: 1,
     limit: 8,
+    userId: 0,
+    dateFrom: '',
+    dateTo: '',
     order: {} as OrderDetailModel,
     error: '',
 };
@@ -42,6 +48,11 @@ const orderSlice = createSlice({
         },
         changePageOrder: (state, { payload }) => {
             state.page = Math.max(payload, 1);
+        },
+        findOrder: (state, { payload }) => {
+            payload.userId ? (state.userId = payload.userId) : (state.userId = 0);
+            payload.dateFrom ? (state.dateFrom = payload.dateFrom) : (state.dateFrom = '');
+            payload.dateTo ? (state.dateTo = payload.dateTo) : (state.dateTo = '');
         },
     },
     extraReducers: (builder) => {
@@ -57,6 +68,23 @@ const orderSlice = createSlice({
         });
         builder.addCase(fetchCreateOrderAction.rejected, (state, { error }: any) => {
             console.log('fetchCreateOrderAction.rejected');
+            state.fetchStatus = FetchStatus.REJECTED;
+            state.error = JSON.parse(error.message);
+        });
+        builder.addCase(fetchGetAllOrdersManagerAction.pending, (state) => {
+            console.log('fetchGetAllOrdersManagerAction.pending');
+            state.fetchStatus = FetchStatus.PENDING;
+            state.error = '';
+        });
+        builder.addCase(fetchGetAllOrdersManagerAction.fulfilled, (state, { payload }) => {
+            console.log('fetchGetAllOrdersManagerAction.fulfilled');
+            state.fetchStatus = FetchStatus.FULFILLED;
+            state.orders = payload.rows;
+            state.count = payload.count;
+            state.error = '';
+        });
+        builder.addCase(fetchGetAllOrdersManagerAction.rejected, (state, { error }: any) => {
+            console.log('fetchGetAllOrdersManagerAction.rejected');
             state.fetchStatus = FetchStatus.REJECTED;
             state.error = JSON.parse(error.message);
         });
@@ -141,6 +169,6 @@ const orderSlice = createSlice({
     },
 });
 
-export const { resetOrder, changePageOrder } = orderSlice.actions;
+export const { resetOrder, changePageOrder, findOrder } = orderSlice.actions;
 
 export const orderReducer = orderSlice.reducer;

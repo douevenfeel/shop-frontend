@@ -1,12 +1,25 @@
 import axiosInstance from 'api';
-import { GetAllOrdersProps, GetOneOrderProps, CancelOrderProps, HideOrderProps, DeliveryOrderProps } from 'api/types/orderService.types';
-
-
+import {
+    GetAllOrdersProps,
+    GetOneOrderProps,
+    CancelOrderProps,
+    HideOrderProps,
+    DeliveryOrderProps,
+    GetAllOrdersManagerProps,
+} from 'api/types/orderService.types';
 import { AxiosError } from 'axios';
 
 export const fetchCreateOrder = () =>
     axiosInstance
         .post('/order')
+        .then((response) => response?.data)
+        .catch((error: AxiosError<Record<string, string>>) => {
+            throw JSON.stringify(error.response?.data);
+        });
+
+export const fetchGetAllOrdersManager = (params: GetAllOrdersManagerProps) =>
+    axiosInstance
+        .get('/order', { params })
         .then((response) => response?.data)
         .catch((error: AxiosError<Record<string, string>>) => {
             throw JSON.stringify(error.response?.data);
