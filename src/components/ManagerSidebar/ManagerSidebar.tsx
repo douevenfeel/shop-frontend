@@ -4,14 +4,14 @@ import { Container } from 'utils/styles';
 
 export const ManagerSidebar = () => {
     const navigate = useNavigate();
-    const { pathname } = useLocation();
+    const location = useLocation();
 
     const handleTab = (path: string) => {
         navigate(`/manager/${path}`);
     };
 
     const handleIsCurrent = (tabname: string) => {
-        return pathname.split('/')[2]?.includes(tabname);
+        return location.pathname.split('/')[2]?.includes(tabname);
     };
 
     return (

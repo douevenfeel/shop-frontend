@@ -6,10 +6,10 @@ import { Container, LinkStyled, Paragraph } from 'utils/styles';
 
 export const Header = () => {
     const { authorized, user } = useAppSelector((store) => store.user);
-    const { pathname } = useLocation();
+    const location = useLocation();
     const dispatch = useAppDispatch();
-    const isAuth = pathname === '/auth/signup' || pathname === '/auth/signin';
-    const isManager = pathname.split('/')[1] === 'manager';
+    const isAuth = location.pathname === '/auth/signup' || location.pathname === '/auth/signin';
+    const isManager = location.pathname.split('/')[1] === 'manager';
 
     const handleLogout = () => {
         dispatch(fetchLogoutAction());
