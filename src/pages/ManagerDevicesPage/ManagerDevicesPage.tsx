@@ -4,16 +4,22 @@ import { ShopPanel } from 'components/ShopPanel';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { DeviceModel } from 'models/deviceModel';
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchGetAllDevicesAction } from 'store/actions/deviceAction';
 import { changePageDevice } from 'store/reducers/deviceReducer';
-import { Container } from 'utils/styles';
+import { Button, Container } from 'utils/styles';
 
 export const ManagerDevicesPage = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { devices, count, limit, page, order, title, fromPrice, toPrice } = useAppSelector((store) => store.device);
 
     const handlePage = (page: number) => {
         dispatch(changePageDevice(page));
+    };
+
+    const handleCreateNewDevice = () => {
+        navigate('/manager/create-device');
     };
 
     useEffect(() => {
@@ -22,7 +28,10 @@ export const ManagerDevicesPage = () => {
     }, [dispatch, order, page, title, fromPrice, toPrice]);
 
     return (
-        <Container padding='12px' flexDirection='column' alignItems='center' width='calc(100vw - 300px)'>
+        <Container padding='12px' flexDirection='column' alignItems='center' width='calc(100vw - 300px)' gap='8px'>
+            <Container justifyContent='flex-end' width='100%'>
+                <Button onClick={handleCreateNewDevice}>create new device</Button>
+            </Container>
             <ShopPanel />
             <Container justifyContent='center' padding='0 auto' gap='20px' maxWidth='1440px'>
                 {devices?.map((device: DeviceModel) => (
