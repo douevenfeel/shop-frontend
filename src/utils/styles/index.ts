@@ -1,5 +1,3 @@
-import { THEME } from './../constants';
-import styled, { css } from 'styled-components';
 import {
     ButtonProps,
     ContainerProps,
@@ -9,9 +7,12 @@ import {
     InputProps,
     ImageProps,
     ArrowProps,
+    ManagerInputProps,
 } from './types';
-import { Link } from 'react-router-dom';
 import { ArrowIcon } from 'assets';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { THEME } from 'utils/constants';
 
 export const Page = styled.div<PageProps>`
     display: flex;
@@ -145,4 +146,44 @@ export const ArrowStyled = styled(ArrowIcon)<ArrowProps>`
     rotate: ${(props) => props.rotate || '0'}deg;
     cursor: pointer;
     z-index: 20;
+`;
+
+export const ManagerInput = styled.input<ManagerInputProps>`
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: ${(props) => props.width || 'auto'};
+    min-width: ${(props) => props.minWidth || 'auto'};
+    max-width: ${(props) => props.maxWidth || 'auto'};
+    font-size: ${(props) => props.fontSize || '16px'};
+    font-weight: ${(props) => props.fontWeight || '400'};
+    font-style: ${(props) => props.fontStyle || 'normal'};
+    text-align: ${(props) => props.textAlign || 'start'};
+    color: ${(props) => props.color || '#f0f0f0'};
+    z-index: 1;
+    word-wrap: break-word;
+    cursor: ${(props) => props.cursor || 'auto'};
+    &:focus {
+        background: #333;
+    }
+    ${(props) =>
+        props.outlined &&
+        css<ParagraphProps>`
+            border-bottom: 1px solid ${(props) => props.color || '#f0f0f0'};
+        `}
+    ${(props) =>
+        props.crossed &&
+        css<ParagraphProps>`
+            font-size: calc(${(props) => props.fontSize || '16px'} - 4px);
+            position: relative;
+            &:before {
+                content: '';
+                border-bottom: 1px solid ${THEME.lighterGray}dd;
+                position: absolute;
+                width: 100%;
+                height: 50%;
+                transform: rotate(-12deg);
+            }
+        `};
 `;

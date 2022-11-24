@@ -9,6 +9,7 @@ export const Header = () => {
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
     const isAuth = pathname === '/auth/signup' || pathname === '/auth/signin';
+    const isManager = pathname === '/manager';
 
     const handleLogout = () => {
         dispatch(fetchLogoutAction());
@@ -50,22 +51,26 @@ export const Header = () => {
                         (authorized && (
                             <>
                                 {user.role === 'ADMIN' && (
-                                    <LinkStyled to='/admin'>
+                                    <LinkStyled to={isManager ? '/' : '/manager'}>
                                         <Paragraph color={THEME.red} fontWeight='500' cursor='pointer'>
-                                            ADMIN
+                                            {isManager ? 'USER' : 'MANAGER'}
                                         </Paragraph>
                                     </LinkStyled>
                                 )}
-                                <LinkStyled to='/basket'>
-                                    <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
-                                        Basket
-                                    </Paragraph>
-                                </LinkStyled>
-                                <LinkStyled to='/orders'>
-                                    <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
-                                        Orders
-                                    </Paragraph>
-                                </LinkStyled>
+                                {!isManager && (
+                                    <>
+                                        <LinkStyled to='/basket'>
+                                            <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
+                                                Basket
+                                            </Paragraph>
+                                        </LinkStyled>
+                                        <LinkStyled to='/orders'>
+                                            <Paragraph color={THEME.blue} fontWeight='500' cursor='pointer'>
+                                                Orders
+                                            </Paragraph>
+                                        </LinkStyled>
+                                    </>
+                                )}
                                 <Paragraph color={THEME.blue} fontWeight='500' onClick={handleLogout} cursor='pointer'>
                                     Logout
                                 </Paragraph>

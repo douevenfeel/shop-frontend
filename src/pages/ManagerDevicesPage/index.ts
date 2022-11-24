@@ -1,0 +1,1 @@
+export { ManagerDevicesPage } from './ManagerDevicesPage';

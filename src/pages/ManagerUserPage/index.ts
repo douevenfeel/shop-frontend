@@ -1,0 +1,1 @@
+export { ManagerUserPage } from './ManagerUserPage';

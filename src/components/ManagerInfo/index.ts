@@ -1,0 +1,1 @@
+export { ManagerInfo } from './ManagerInfo';

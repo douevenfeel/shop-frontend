@@ -1,12 +1,11 @@
+import { Card } from './DeviceCard.style';
+import { DeviceCardProps } from './DeviceCard.types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchAddDeviceBasketAction } from 'store/actions/basketAction';
 import { THEME } from 'utils/constants';
 import { Button, Container, Image, Paragraph } from 'utils/styles';
-import { Card } from './DeviceCard.style';
-
-import { DeviceCardProps } from './DeviceCard.types';
 
 export const DeviceCard: React.FC<DeviceCardProps> = ({ device, handleBrand }) => {
     const { authorized } = useAppSelector((store) => store.user);

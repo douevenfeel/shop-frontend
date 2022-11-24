@@ -75,3 +75,17 @@ export interface ArrowProps {
     bottom?: string;
     left?: string;
 }
+
+export interface ManagerInputProps {
+    width?: string;
+    minWidth?: string;
+    maxWidth?: string;
+    fontSize?: string;
+    fontWeight?: string;
+    fontStyle?: string;
+    textAlign?: string;
+    color?: string;
+    cursor?: string;
+    outlined?: boolean;
+    crossed?: boolean;
+}

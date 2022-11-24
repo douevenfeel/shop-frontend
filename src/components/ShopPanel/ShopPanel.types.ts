@@ -1,4 +1,4 @@
 export type ShopPanelProps = {
-    brandTitle: string;
-    removeBrand: () => void;
+    brandTitle?: string;
+    removeBrand?: () => void;
 };

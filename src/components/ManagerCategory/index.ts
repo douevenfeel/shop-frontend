@@ -1,0 +1,1 @@
+export { ManagerCategory } from './ManagerCategory';

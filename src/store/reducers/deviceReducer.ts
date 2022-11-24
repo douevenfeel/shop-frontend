@@ -60,6 +60,9 @@ const deviceSlice = createSlice({
             payload.fromPrice ? (state.fromPrice = payload.fromPrice) : (state.fromPrice = 0);
             payload.toPrice ? (state.toPrice = payload.toPrice) : (state.toPrice = 0);
         },
+        resetPage: (state) => {
+            state.page = 1;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchGetAllDevicesAction.pending, (state) => {
@@ -212,6 +215,6 @@ const deviceSlice = createSlice({
     },
 });
 
-export const { resetDevice, changePageDevice, sortDevices, findDevice } = deviceSlice.actions;
+export const { resetDevice, changePageDevice, sortDevices, findDevice, resetPage } = deviceSlice.actions;
 
 export const deviceReducer = deviceSlice.reducer;

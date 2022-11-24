@@ -1,0 +1,1 @@
+export { ManagerDeviceCard } from './ManagerDeviceCard';

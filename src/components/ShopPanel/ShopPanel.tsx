@@ -1,3 +1,4 @@
+import { ShopPanelProps } from './ShopPanel.types';
 import { Dropdown } from 'components/Dropdown';
 import { DropdownValueProps } from 'components/Dropdown/Dropdown.types';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -5,8 +6,6 @@ import { useDebounce } from 'hooks/useDebounce';
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { findDevice, sortDevices } from 'store/reducers/deviceReducer';
 import { Button, Container, Input, Paragraph } from 'utils/styles';
-
-import { ShopPanelProps } from './ShopPanel.types';
 
 const orderValues: DropdownValueProps[] = [
     { title: 'default', order: ['image', 'DESC'] },
@@ -49,9 +48,11 @@ export const ShopPanel: React.FC<ShopPanelProps> = ({ brandTitle, removeBrand })
             justifyContent='space-between'
             gap='20px'
         >
-            <Button onClick={() => removeBrand()} height='28px' padding='4px 8px'>
-                Brand {brandTitle === 'all' ? '' : brandTitle}
-            </Button>
+            {!!brandTitle && (
+                <Button onClick={removeBrand} height='28px' padding='4px 8px'>
+                    Brand {brandTitle === 'all' ? '' : brandTitle}
+                </Button>
+            )}
             <Container gap='8px'>
                 <Container gap='8px' alignItems='center'>
                     <Paragraph>from</Paragraph>
