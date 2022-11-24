@@ -1,0 +1,1 @@
+export { ManagerUserPanel } from './ManagerUserPanel';

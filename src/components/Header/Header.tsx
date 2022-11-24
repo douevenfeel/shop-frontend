@@ -8,7 +8,7 @@ export const Header = () => {
     const { authorized, user } = useAppSelector((store) => store.user);
     const location = useLocation();
     const dispatch = useAppDispatch();
-    const isAuth = location.pathname.includes('/auth');
+    const isAuth = location.pathname.includes('auth');
     const isManager = location.pathname.includes('manager');
 
     const handleLogout = () => {

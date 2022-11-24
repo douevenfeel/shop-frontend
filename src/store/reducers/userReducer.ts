@@ -1,29 +1,46 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { SearchBy } from 'api/types/userService.types';
 import { UserModel } from 'models/userModel';
-import { FetchStatus } from 'utils/fetchStatus.types';
 import { fetchSignupAction, fetchSigninAction, fetchLogoutAction, fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllUsersAction, fetchUpdateUserRoleAction } from 'store/actions/userAction';
+import { FetchStatus } from 'utils/fetchStatus.types';
 
 export interface UserState {
     fetchStatus: FetchStatus;
     authorized: boolean;
-    users: UserModel[];
     user: UserModel;
+    users: UserModel[];
+    page: number;
+    count: number;
+    searchBy: SearchBy;
+    searchValue: string;
     error: string | any;
 }
 
 const initialState: UserState = {
     fetchStatus: FetchStatus.IDLE,
     authorized: false,
-    users: [],
     user: {} as UserModel,
+    users: [],
+    page: 1,
+    count: 0,
+    searchBy: 'email',
+    searchValue: '',
     error: '',
 };
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        changePageUser: (state, { payload }) => {
+            state.page = Math.max(payload, 1);
+        },
+        findUser: (state, { payload }) => {
+            payload.searchValue ? (state.searchValue = payload.searchValue) : (state.searchValue = '');
+            state.searchBy = payload.searchBy;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchSignupAction.pending, (state) => {
             console.log('fetchSignupAction.pending');
@@ -97,7 +114,9 @@ const userSlice = createSlice({
         builder.addCase(fetchGetAllUsersAction.fulfilled, (state, { payload }) => {
             console.log('fetchGetAllUsersAction.fulfilled');
             state.fetchStatus = FetchStatus.FULFILLED;
-            state.users = payload.users;
+            state.users = payload.rows;
+            state.page = 1;
+            state.count = payload.count;
             state.error = '';
         });
         builder.addCase(fetchGetAllUsersAction.rejected, (state, { error }: any) => {
@@ -122,5 +141,7 @@ const userSlice = createSlice({
         });
     },
 });
+
+export const { changePageUser, findUser } = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

@@ -1,0 +1,1 @@
+export { ManagerUserCard } from './ManagerUserCard';
