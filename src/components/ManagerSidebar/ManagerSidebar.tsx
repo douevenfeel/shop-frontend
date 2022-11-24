@@ -11,7 +11,7 @@ export const ManagerSidebar = () => {
     };
 
     const handleIsCurrent = (tabname: string) => {
-        return location.pathname.split('/')[2]?.includes(tabname);
+        return location.pathname.includes(tabname);
     };
 
     return (
