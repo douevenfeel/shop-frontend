@@ -50,7 +50,7 @@ export const Header = () => {
                     )) ||
                         (authorized && (
                             <>
-                                {user.role === 'ADMIN' && (
+                                {user.role === 'MANAGER' && (
                                     <LinkStyled to={isManager ? '/' : '/manager'}>
                                         <Paragraph color={THEME.red} fontWeight='500' cursor='pointer'>
                                             {isManager ? 'USER' : 'MANAGER'}

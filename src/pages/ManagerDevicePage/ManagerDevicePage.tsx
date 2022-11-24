@@ -5,25 +5,15 @@ import { ManagerDeviceInfo } from 'components/ManagerDeviceInfo';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetOneDeviceAction } from 'store/actions/deviceAction';
 import { resetDevice } from 'store/reducers/deviceReducer';
 import { Container, Paragraph } from 'utils/styles';
 
 export const ManagerDevicePage: React.FC<ManagerDevicePageProps> = () => {
-    const { authorized } = useAppSelector((store) => store.user);
     const { device, fetchActionStatus } = useAppSelector((store) => store.device);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            !authorized && dispatch(fetchRefreshAction());
-        } else {
-            !authorized && navigate('/shop');
-        }
-    }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
         id && dispatch(fetchGetOneDeviceAction({ id: +id }));

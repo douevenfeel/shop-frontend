@@ -1,0 +1,1 @@
+export { ManagerCreateDevicePage } from './ManagerCreateDevicePage';

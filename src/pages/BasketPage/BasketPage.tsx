@@ -2,7 +2,6 @@ import { DeviceCardBasket } from 'components/DeviceCardBasket';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetBasketAction } from 'store/actions/basketAction';
 import { fetchCreateOrderAction } from 'store/actions/orderAction';
 import { THEME } from 'utils/constants';
@@ -13,14 +12,6 @@ export const BasketPage = () => {
     const { basket, fetchActionStatus } = useAppSelector((store) => store.basket);
     const { authorized } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            !authorized && dispatch(fetchRefreshAction());
-        } else {
-            !authorized && navigate('/shop');
-        }
-    }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
         authorized && dispatch(fetchGetBasketAction());

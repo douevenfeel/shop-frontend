@@ -3,7 +3,6 @@ import { ManagerSidebar } from 'components/ManagerSidebar';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { fetchRefreshAction } from 'store/actions/authAction';
 import { resetPage } from 'store/reducers/deviceReducer';
 import { Container } from 'utils/styles';
 
@@ -15,12 +14,6 @@ export const ManagerPage: React.FC<ManagerPageProps> = ({ children }) => {
 
     useEffect(() => {
         dispatch(resetPage());
-
-        if (localStorage.getItem('token')) {
-            !authorized && dispatch(fetchRefreshAction());
-        } else {
-            !authorized && navigate('/shop');
-        }
 
         return () => {
             dispatch(resetPage());

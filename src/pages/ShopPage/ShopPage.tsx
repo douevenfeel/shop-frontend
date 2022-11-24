@@ -4,8 +4,6 @@ import { ShopPanel } from 'components/ShopPanel';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { DeviceModel } from 'models/deviceModel';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllDevicesAction } from 'store/actions/deviceAction';
 import { changePageDevice } from 'store/reducers/deviceReducer';
 import { Container, Page, Paragraph } from 'utils/styles';
@@ -13,9 +11,7 @@ import { Container, Page, Paragraph } from 'utils/styles';
 export const ShopPage = () => {
     const dispatch = useAppDispatch();
     const { devices, count, limit, page, order, title, fromPrice, toPrice } = useAppSelector((store) => store.device);
-    const { authorized } = useAppSelector((store) => store.user);
     const [brandTitle, setBrandTitle] = useState<string>('all');
-    const navigate = useNavigate();
 
     const handleBrand = (e: React.MouseEvent<HTMLElement, MouseEvent>, brandTitle: string) => {
         e.stopPropagation();
@@ -26,12 +22,6 @@ export const ShopPage = () => {
     const handlePage = (page: number) => {
         dispatch(changePageDevice(page));
     };
-
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            !authorized && dispatch(fetchRefreshAction());
-        }
-    }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
         const values = { page, brandTitle, order: order.order, title, fromPrice, toPrice };

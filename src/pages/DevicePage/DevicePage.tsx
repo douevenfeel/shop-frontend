@@ -3,7 +3,6 @@ import { Category } from 'components/Category';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchAddDeviceBasketAction } from 'store/actions/basketAction';
 import { fetchGetOneDeviceAction } from 'store/actions/deviceAction';
 import { resetDevice } from 'store/reducers/deviceReducer';
@@ -15,12 +14,6 @@ export const DevicePage = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            !authorized && dispatch(fetchRefreshAction());
-        }
-    }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
         id && dispatch(fetchGetOneDeviceAction({ id: +id }));

@@ -1,25 +1,22 @@
+import { Card } from '../AuthPage.style';
 import { SigninProps } from 'api/types/authService.types';
 import { UserIcon } from 'assets';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import React, { useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { fetchRefreshAction, fetchSigninAction } from 'store/actions/authAction';
+import { fetchSigninAction } from 'store/actions/authAction';
 import { THEME } from 'utils/constants';
 import { Button, Form, Input, LinkStyled, Page, Paragraph } from 'utils/styles';
-import { Card } from '../AuthPage.style';
 
 export const SigninPage = () => {
     const { register, handleSubmit } = useForm();
     const dispatch = useAppDispatch();
     const { error, authorized } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
-    
+
     useEffect(() => {
-        if (localStorage.getItem('token')) {
-            !authorized && dispatch(fetchRefreshAction());
-            authorized && navigate('/shop');
-        }
+        authorized && navigate('/');
     }, [authorized, dispatch, navigate]);
 
     const onSubmit = (data: FieldValues) => {

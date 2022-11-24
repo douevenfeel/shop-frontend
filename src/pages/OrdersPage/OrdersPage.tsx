@@ -3,30 +3,18 @@ import { Navigation } from 'components/Navigation';
 import { OrderCard } from 'components/OrderCard';
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllOrdersAction } from 'store/actions/orderAction';
 import { changePageOrder } from 'store/reducers/orderReducer';
 import { Page, Paragraph, Container, Button } from 'utils/styles';
 
 export const OrdersPage = () => {
     const { orders, count, limit, page, fetchActionStatus } = useAppSelector((store) => store.order);
-    const { authorized } = useAppSelector((store) => store.user);
     const [params, setParams] = useState({});
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     const handlePage = (page: number) => {
         dispatch(changePageOrder(page));
     };
-
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            !authorized && dispatch(fetchRefreshAction());
-        } else {
-            !authorized && navigate(-1);
-        }
-    }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
         dispatch(fetchGetAllOrdersAction({ page, ...params }));
