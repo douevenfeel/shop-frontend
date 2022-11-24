@@ -17,34 +17,22 @@ export interface CreateDeviceProps {
     image: File;
 }
 
+export interface UpdateDeviceProps {
+    id: number;
+    title: string;
+    brandTitle: string;
+    price: number;
+}
+
 export interface CreateCategoryDeviceProps {
     deviceId: number;
     categoryTitle: string;
 }
 
 export interface CreateInfoDeviceProps {
-    categoryId:number;
+    categoryId?: number;
     title: string;
     content: string;
-}
-
-export interface UpdateAvailableDeviceProps {
-    id: number;
-    available: boolean;
-}
-
-export interface UpdatePriceDeviceProps {
-    id: number;
-    price: number;
-}
-
-export interface DiscountDeviceProps {
-    id: number;
-    price: number;
-}
-
-export interface RemoveDiscountDeviceProps {
-    id: number;
 }
 
 export interface UpdateCategoryTitleDeviceProps {
@@ -52,11 +40,16 @@ export interface UpdateCategoryTitleDeviceProps {
     categoryTitle: string;
 }
 
-
 export interface DeleteCategoryDeviceProps {
-    categoryId: number;
+    categoryId?: number;
+}
+
+export interface UpdateInfoDeviceProps {
+    id?: number;
+    title: string;
+    content: string;
 }
 
 export interface DeleteInfoDeviceProps {
-    id: number;
+    id?: number;
 }

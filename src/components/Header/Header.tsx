@@ -9,7 +9,7 @@ export const Header = () => {
     const { pathname } = useLocation();
     const dispatch = useAppDispatch();
     const isAuth = pathname === '/auth/signup' || pathname === '/auth/signin';
-    const isManager = pathname === '/manager';
+    const isManager = pathname.split('/')[1] === 'manager';
 
     const handleLogout = () => {
         dispatch(fetchLogoutAction());

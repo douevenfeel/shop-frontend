@@ -5,15 +5,12 @@ import {
     CreateDeviceProps,
     CreateCategoryDeviceProps,
     CreateInfoDeviceProps,
-    UpdateAvailableDeviceProps,
-    UpdatePriceDeviceProps,
-    DiscountDeviceProps,
-    RemoveDiscountDeviceProps,
     UpdateCategoryTitleDeviceProps,
     DeleteCategoryDeviceProps,
     DeleteInfoDeviceProps,
+    UpdateInfoDeviceProps,
+    UpdateDeviceProps,
 } from 'api/types/deviceService.types';
-
 import { AxiosError } from 'axios';
 
 export const fetchGetAllDevices = (values: GetAllDevicesProps) =>
@@ -40,6 +37,14 @@ export const fetchCreateDevice = (values: CreateDeviceProps) =>
             throw JSON.stringify(error.response?.data);
         });
 
+export const fetchUpdateDevice = (values: UpdateDeviceProps) =>
+    axiosInstance
+        .put('/device/update', values)
+        .then((response) => response?.data)
+        .catch((error: AxiosError<Record<string, string>>) => {
+            throw JSON.stringify(error.response?.data);
+        });
+
 export const fetchCreateCategoryDevice = (values: CreateCategoryDeviceProps) =>
     axiosInstance
         .post(`/device/category`, values)
@@ -56,38 +61,6 @@ export const fetchCreateInfoDevice = (values: CreateInfoDeviceProps) =>
             throw JSON.stringify(error.response?.data);
         });
 
-export const fetchUpdateAvailableDevice = (values: UpdateAvailableDeviceProps) =>
-    axiosInstance
-        .put(`/device/available`, values)
-        .then((response) => response?.data)
-        .catch((error: AxiosError<Record<string, string>>) => {
-            throw JSON.stringify(error.response?.data);
-        });
-
-export const fetchUpdatePriceDevice = (values: UpdatePriceDeviceProps) =>
-    axiosInstance
-        .put(`/device/update-price`, values)
-        .then((response) => response?.data)
-        .catch((error: AxiosError<Record<string, string>>) => {
-            throw JSON.stringify(error.response?.data);
-        });
-
-export const fetchUpdateDiscountDevice = (values: DiscountDeviceProps) =>
-    axiosInstance
-        .put(`/device/update-discount`, values)
-        .then((response) => response?.data)
-        .catch((error: AxiosError<Record<string, string>>) => {
-            throw JSON.stringify(error.response?.data);
-        });
-
-export const fetchRemoveDiscountDevice = (values: RemoveDiscountDeviceProps) =>
-    axiosInstance
-        .put(`/device/remove-discount`, values)
-        .then((response) => response?.data)
-        .catch((error: AxiosError<Record<string, string>>) => {
-            throw JSON.stringify(error.response?.data);
-        });
-
 export const fetchUpdateCategoryTitleDevice = (values: UpdateCategoryTitleDeviceProps) =>
     axiosInstance
         .put(`/device/category`, values)
@@ -96,10 +69,17 @@ export const fetchUpdateCategoryTitleDevice = (values: UpdateCategoryTitleDevice
             throw JSON.stringify(error.response?.data);
         });
 
-
 export const fetchDeleteCategoryDevice = (values: DeleteCategoryDeviceProps) =>
     axiosInstance
         .delete(`/device/category`, { data: values })
+        .then((response) => response?.data)
+        .catch((error: AxiosError<Record<string, string>>) => {
+            throw JSON.stringify(error.response?.data);
+        });
+
+export const fetchUpdateInfoDevice = (values: UpdateInfoDeviceProps) =>
+    axiosInstance
+        .put(`/device/category/info`, values)
         .then((response) => response?.data)
         .catch((error: AxiosError<Record<string, string>>) => {
             throw JSON.stringify(error.response?.data);

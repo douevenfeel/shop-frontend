@@ -15,6 +15,7 @@ export const ManagerPage: React.FC<ManagerPageProps> = ({ children }) => {
 
     useEffect(() => {
         dispatch(resetPage());
+
         if (localStorage.getItem('token')) {
             !authorized && dispatch(fetchRefreshAction());
         } else {

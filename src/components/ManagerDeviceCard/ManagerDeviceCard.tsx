@@ -26,16 +26,8 @@ export const ManagerDeviceCard: React.FC<ManagerDeviceCardProps> = ({ device }) 
                 </Paragraph>
                 <Container justifyContent='space-between' width='100%'>
                     <Paragraph>{device.title}</Paragraph>
-                    {device.oldPrice === 0 ? (
                         <Paragraph fontWeight='500'>{device.price} р.</Paragraph>
-                    ) : (
-                        <Container alignItems='flex-end' flexDirection='column' position='absolute' top='-18px'>
-                            <Paragraph crossed color={THEME.lighterGray}>
-                                {device.oldPrice}
-                            </Paragraph>
-                            <Paragraph fontWeight='500'>{device.price} р.</Paragraph>
-                        </Container>
-                    )}
+                  
                 </Container>
             </Container>
         </Card>

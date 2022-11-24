@@ -4,17 +4,29 @@ import { ShopPanel } from 'components/ShopPanel';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { DeviceModel } from 'models/deviceModel';
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchGetAllDevicesAction } from 'store/actions/deviceAction';
 import { changePageDevice } from 'store/reducers/deviceReducer';
 import { Container } from 'utils/styles';
 
 export const ManagerDevicesPage = () => {
     const dispatch = useAppDispatch();
+    const { authorized } = useAppSelector((store) => store.user);
+    const navigate = useNavigate();
     const { devices, count, limit, page, order, title, fromPrice, toPrice } = useAppSelector((store) => store.device);
 
     const handlePage = (page: number) => {
         dispatch(changePageDevice(page));
     };
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            !authorized && dispatch(fetchRefreshAction());
+        } else {
+            !authorized && navigate('/shop');
+        }
+    }, [authorized, dispatch, navigate]);
 
     useEffect(() => {
         const values = { page, order: order.order, title, fromPrice, toPrice };

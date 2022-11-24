@@ -7,7 +7,6 @@ import { fetchRefreshAction } from 'store/actions/authAction';
 import { fetchAddDeviceBasketAction } from 'store/actions/basketAction';
 import { fetchGetOneDeviceAction } from 'store/actions/deviceAction';
 import { resetDevice } from 'store/reducers/deviceReducer';
-import { THEME } from 'utils/constants';
 import { Button, Container, Image, Page, Paragraph } from 'utils/styles';
 
 export const DevicePage = () => {
@@ -51,20 +50,9 @@ export const DevicePage = () => {
                         />
                         <Container flexDirection='column'>
                             <Paragraph fontSize='20px'>{device.title}</Paragraph>
-                            {device.oldPrice === 0 ? (
-                                <Paragraph fontWeight='500' fontSize='20px'>
-                                    {device.price} р.
-                                </Paragraph>
-                            ) : (
-                                <Container flexDirection='column'>
-                                    <Paragraph crossed color={THEME.lighterGray} fontSize='20px'>
-                                        {device.oldPrice}
-                                    </Paragraph>
-                                    <Paragraph fontWeight='500' fontSize='20px'>
-                                        {device.price} р.
-                                    </Paragraph>
-                                </Container>
-                            )}
+                            <Paragraph fontWeight='500' fontSize='20px'>
+                                {device.price} р.
+                            </Paragraph>
                         </Container>
                         {authorized && (
                             <Container justifyContent='center' width='100%'>

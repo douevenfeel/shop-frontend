@@ -10,6 +10,8 @@ import {
     ManagerInputProps,
 } from './types';
 import { ArrowIcon } from 'assets';
+import { AiOutlineAppstoreAdd } from 'react-icons/ai';
+import { FiDelete, FiSave } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { THEME } from 'utils/constants';
@@ -162,7 +164,6 @@ export const ManagerInput = styled.input<ManagerInputProps>`
     text-align: ${(props) => props.textAlign || 'start'};
     color: ${(props) => props.color || '#f0f0f0'};
     z-index: 1;
-    word-wrap: break-word;
     cursor: ${(props) => props.cursor || 'auto'};
     &:focus {
         background: #333;
@@ -186,4 +187,29 @@ export const ManagerInput = styled.input<ManagerInputProps>`
                 transform: rotate(-12deg);
             }
         `};
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+`;
+
+export const ManagerInputContainerStyled = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+`;
+
+export const FiDeleteStyled = styled(FiDelete)`
+    cursor: pointer;
+`;
+
+export const AiOutlineAppstoreAddStyled = styled(AiOutlineAppstoreAdd)`
+    cursor: pointer;
+`;
+
+export const FiSaveStyled = styled(FiSave)`
+    cursor: pointer;
 `;

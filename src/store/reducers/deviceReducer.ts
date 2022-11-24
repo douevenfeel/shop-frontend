@@ -6,18 +6,17 @@ import {
     fetchCreateDeviceAction,
     fetchCreateCategoryDeviceAction,
     fetchCreateInfoDeviceAction,
-    fetchUpdateAvailableDeviceAction,
-    fetchUpdatePriceDeviceAction,
-    fetchUpdateDiscountDeviceAction,
-    fetchRemoveDiscountDeviceAction,
     fetchUpdateCategoryTitleDeviceAction,
     fetchDeleteCategoryDeviceAction,
     fetchDeleteInfoDeviceAction,
+    fetchUpdateInfoDeviceAction,
+    fetchUpdateDeviceAction,
 } from 'store/actions/deviceAction';
 import { FetchStatus } from 'utils/fetchStatus.types';
 
 export interface DeviceState {
     fetchStatus: FetchStatus;
+    fetchActionStatus: FetchStatus;
     devices: DeviceModel[];
     device: DeviceDetailModel;
     count: number;
@@ -31,6 +30,7 @@ export interface DeviceState {
 
 const initialState: DeviceState = {
     fetchStatus: FetchStatus.IDLE,
+    fetchActionStatus: FetchStatus.IDLE,
     devices: [],
     device: {} as DeviceDetailModel,
     count: 0,
@@ -93,7 +93,7 @@ const deviceSlice = createSlice({
             state.fetchStatus = FetchStatus.REJECTED;
         });
         builder.addCase(fetchCreateDeviceAction.pending, (state) => {
-            console.log('fetchGetOneDeviceAction.pending');
+            console.log('fetchCreateDeviceAction.pending');
             state.fetchStatus = FetchStatus.PENDING;
         });
         builder.addCase(fetchCreateDeviceAction.fulfilled, (state) => {
@@ -104,113 +104,89 @@ const deviceSlice = createSlice({
             console.log('fetchCreateDeviceAction.rejected');
             state.fetchStatus = FetchStatus.REJECTED;
         });
+        builder.addCase(fetchUpdateDeviceAction.pending, (state) => {
+            console.log('fetchUpdateDeviceAction.pending');
+            state.fetchActionStatus = FetchStatus.PENDING;
+        });
+        builder.addCase(fetchUpdateDeviceAction.fulfilled, (state) => {
+            console.log('fetchUpdateDeviceAction.fulfilled');
+            state.fetchActionStatus = FetchStatus.FULFILLED;
+        });
+        builder.addCase(fetchUpdateDeviceAction.rejected, (state) => {
+            console.log('fetchUpdateDeviceAction.rejected');
+            state.fetchActionStatus = FetchStatus.REJECTED;
+        });
         builder.addCase(fetchCreateCategoryDeviceAction.pending, (state) => {
             console.log('fetchCreateCategoryDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
+            state.fetchActionStatus = FetchStatus.PENDING;
         });
         builder.addCase(fetchCreateCategoryDeviceAction.fulfilled, (state) => {
             console.log('fetchCreateCategoryDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
+            state.fetchActionStatus = FetchStatus.FULFILLED;
         });
         builder.addCase(fetchCreateCategoryDeviceAction.rejected, (state) => {
             console.log('fetchCreateCategoryDeviceAction.rejected');
-            state.fetchStatus = FetchStatus.REJECTED;
+            state.fetchActionStatus = FetchStatus.REJECTED;
         });
         builder.addCase(fetchCreateInfoDeviceAction.pending, (state) => {
             console.log('fetchCreateInfoDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
+            state.fetchActionStatus = FetchStatus.PENDING;
         });
         builder.addCase(fetchCreateInfoDeviceAction.fulfilled, (state) => {
             console.log('fetchCreateInfoDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
+            state.fetchActionStatus = FetchStatus.FULFILLED;
         });
         builder.addCase(fetchCreateInfoDeviceAction.rejected, (state) => {
             console.log('fetchCreateInfoDeviceAction.rejected');
-            state.fetchStatus = FetchStatus.REJECTED;
-        });
-        builder.addCase(fetchUpdateAvailableDeviceAction.pending, (state) => {
-            console.log('fetchUpdateAvailableDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
-        });
-        builder.addCase(fetchUpdateAvailableDeviceAction.fulfilled, (state) => {
-            console.log('fetchUpdateAvailableDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
-        });
-        builder.addCase(fetchUpdateAvailableDeviceAction.rejected, (state) => {
-            console.log('fetchUpdateAvailableDeviceAction.rejected');
-            state.fetchStatus = FetchStatus.REJECTED;
-        });
-        builder.addCase(fetchUpdatePriceDeviceAction.pending, (state) => {
-            console.log('fetchUpdatePriceDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
-        });
-        builder.addCase(fetchUpdatePriceDeviceAction.fulfilled, (state) => {
-            console.log('fetchUpdatePriceDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
-        });
-        builder.addCase(fetchUpdatePriceDeviceAction.rejected, (state) => {
-            console.log('fetchUpdatePriceDeviceAction.rejected');
-            state.fetchStatus = FetchStatus.REJECTED;
-        });
-        builder.addCase(fetchUpdateDiscountDeviceAction.pending, (state) => {
-            console.log('fetchUpdateDiscountDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
-        });
-        builder.addCase(fetchUpdateDiscountDeviceAction.fulfilled, (state) => {
-            console.log('fetchUpdateDiscountDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
-        });
-        builder.addCase(fetchUpdateDiscountDeviceAction.rejected, (state) => {
-            console.log('fetchUpdateDiscountDeviceAction.rejected');
-            state.fetchStatus = FetchStatus.REJECTED;
-        });
-        builder.addCase(fetchRemoveDiscountDeviceAction.pending, (state) => {
-            console.log('fetchRemoveDiscountDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
-        });
-        builder.addCase(fetchRemoveDiscountDeviceAction.fulfilled, (state) => {
-            console.log('fetchRemoveDiscountDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
-        });
-        builder.addCase(fetchRemoveDiscountDeviceAction.rejected, (state) => {
-            console.log('fetchRemoveDiscountDeviceAction.rejected');
-            state.fetchStatus = FetchStatus.REJECTED;
+            state.fetchActionStatus = FetchStatus.REJECTED;
         });
         builder.addCase(fetchUpdateCategoryTitleDeviceAction.pending, (state) => {
             console.log('fetchUpdateCategoryTitleDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
+            state.fetchActionStatus = FetchStatus.PENDING;
         });
         builder.addCase(fetchUpdateCategoryTitleDeviceAction.fulfilled, (state) => {
             console.log('fetchUpdateCategoryTitleDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
+            state.fetchActionStatus = FetchStatus.FULFILLED;
         });
         builder.addCase(fetchUpdateCategoryTitleDeviceAction.rejected, (state) => {
             console.log('fetchUpdateCategoryTitleDeviceAction.rejected');
-            state.fetchStatus = FetchStatus.REJECTED;
+            state.fetchActionStatus = FetchStatus.REJECTED;
         });
         builder.addCase(fetchDeleteCategoryDeviceAction.pending, (state) => {
             console.log('fetchDeleteCategoryDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
+            state.fetchActionStatus = FetchStatus.PENDING;
         });
         builder.addCase(fetchDeleteCategoryDeviceAction.fulfilled, (state) => {
             console.log('fetchDeleteCategoryDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
+            state.fetchActionStatus = FetchStatus.FULFILLED;
         });
         builder.addCase(fetchDeleteCategoryDeviceAction.rejected, (state) => {
             console.log('fetchDeleteCategoryDeviceAction.rejected');
+            state.fetchActionStatus = FetchStatus.REJECTED;
+        });
+        builder.addCase(fetchUpdateInfoDeviceAction.pending, (state) => {
+            console.log('fetchUpdateInfoDeviceAction.pending');
+            state.fetchStatus = FetchStatus.PENDING;
+        });
+        builder.addCase(fetchUpdateInfoDeviceAction.fulfilled, (state) => {
+            console.log('fetchUpdateInfoDeviceAction.fulfilled');
+            state.fetchStatus = FetchStatus.FULFILLED;
+        });
+        builder.addCase(fetchUpdateInfoDeviceAction.rejected, (state) => {
+            console.log('fetchUpdateInfoDeviceAction.rejected');
             state.fetchStatus = FetchStatus.REJECTED;
         });
         builder.addCase(fetchDeleteInfoDeviceAction.pending, (state) => {
             console.log('fetchDeleteInfoDeviceAction.pending');
-            state.fetchStatus = FetchStatus.PENDING;
+            state.fetchActionStatus = FetchStatus.PENDING;
         });
         builder.addCase(fetchDeleteInfoDeviceAction.fulfilled, (state) => {
             console.log('fetchDeleteInfoDeviceAction.fulfilled');
-            state.fetchStatus = FetchStatus.FULFILLED;
+            state.fetchActionStatus = FetchStatus.FULFILLED;
         });
         builder.addCase(fetchDeleteInfoDeviceAction.rejected, (state) => {
             console.log('fetchDeleteInfoDeviceAction.rejected');
-            state.fetchStatus = FetchStatus.REJECTED;
+            state.fetchActionStatus = FetchStatus.REJECTED;
         });
     },
 });

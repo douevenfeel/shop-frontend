@@ -1,3 +1,5 @@
+import { Checkbox, CheckboxSelected, DeviceCardBasketContainer } from './DeviceCardBasket.style';
+import { DeviceCardBasketProps } from './DeviceCardBasket.types';
 import { useAppDispatch } from 'hooks/redux';
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,9 +10,6 @@ import {
 } from 'store/actions/basketAction';
 import { THEME } from 'utils/constants';
 import { Button, Container, Image, Paragraph } from 'utils/styles';
-import { Checkbox, CheckboxSelected, DeviceCardBasketContainer } from './DeviceCardBasket.style';
-
-import { DeviceCardBasketProps } from './DeviceCardBasket.types';
 
 export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, selected, device }) => {
     const dispatch = useAppDispatch();
@@ -20,12 +19,12 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
         (count: number) => {
             dispatch(fetchChangeCountBasketAction({ deviceId: device.id, count }));
         },
-        [device.id, dispatch]
+        [device.id, dispatch],
     );
 
     const changeSelected = useCallback(() => {
-        device.available && dispatch(fetchChangeSelectedBasketAction({ deviceId: device.id, selected: !selected }));
-    }, [device.available, device.id, dispatch, selected]);
+        dispatch(fetchChangeSelectedBasketAction({ deviceId: device.id, selected: !selected }));
+    }, [device.id, dispatch, selected]);
 
     const handleDelete = useCallback(() => {
         dispatch(fetchDeleteDeviceBasketAction({ deviceId: device.id }));
@@ -38,16 +37,15 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
     return (
         <Container gap='8px'>
             <Checkbox onClick={changeSelected}>
-                <CheckboxSelected selected={selected && device.available} />
+                <CheckboxSelected selected={selected} />
             </Checkbox>
             <DeviceCardBasketContainer>
                 <Container flexDirection='column' gap='8px' alignItems='center'>
-                    {!device.available && <Paragraph>Not available</Paragraph>}
                     <Paragraph
                         textAlign='center'
                         width='100%'
                         fontSize='18px'
-                        color={selected && device.available ? THEME.white : THEME.lighterGray}
+                        color={selected ? THEME.white : THEME.lighterGray}
                     >
                         {device.title}
                     </Paragraph>
@@ -57,9 +55,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
                         alt={device.title}
                         onClick={handleClick}
                     />
-                    <Paragraph color={selected && device.available ? THEME.white : THEME.lighterGray}>
-                        {device.price} р.
-                    </Paragraph>
+                    <Paragraph color={selected ? THEME.white : THEME.lighterGray}>{device.price} р.</Paragraph>
                 </Container>
                 <Container flexDirection='column' justifyContent='center' alignItems='center' gap='8px'>
                     <Container justifyContent='center'>
@@ -77,7 +73,7 @@ export const DeviceCardBasket: React.FC<DeviceCardBasketProps> = ({ id, count, s
                             width='36px'
                             textAlign='center'
                             fontSize='24px'
-                            color={selected && device.available ? THEME.white : THEME.lighterGray}
+                            color={selected ? THEME.white : THEME.lighterGray}
                         >
                             {count}
                         </Paragraph>

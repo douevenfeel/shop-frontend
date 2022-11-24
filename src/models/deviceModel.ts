@@ -2,9 +2,7 @@ export interface DeviceModel {
     id: number;
     title: string;
     price: number;
-    oldPrice: number;
     image: string;
-    available: boolean;
     brand: BrandModel;
 }
 
@@ -18,13 +16,13 @@ export interface DeviceDetailModel extends DeviceModel {
 }
 
 export interface CategoryModel {
-    id: number;
+    id?: number;
     title: string;
-    infos: InfoModel[];
+    infos?: InfoModel[];
 }
 
 export interface InfoModel {
-    id: number;
+    id?: number;
     title: string;
     content: string;
 }
