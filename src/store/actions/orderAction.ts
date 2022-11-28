@@ -1,20 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
     fetchCreateOrder,
+    fetchGetAllOrdersManager,
+    fetchDeliveryStatusOrderManager,
     fetchGetAllOrders,
     fetchGetOneOrder,
     fetchCancelOrder,
     fetchHideOrder,
     fetchDeliveryOrder,
-    fetchGetAllOrdersManager,
 } from 'api/services/orderService';
 import {
+    GetAllOrdersManagerProps,
+    DeliveryStatusOrderManagerProps,
     GetAllOrdersProps,
     GetOneOrderProps,
     CancelOrderProps,
     HideOrderProps,
     DeliveryOrderProps,
-    GetAllOrdersManagerProps,
 } from 'api/types/orderService.types';
 
 export const fetchCreateOrderAction = createAsyncThunk('createOrder/fetchCreateOrder', async () => {
@@ -25,6 +27,13 @@ export const fetchGetAllOrdersManagerAction = createAsyncThunk(
     'getAllOrdersManager/fetchGetAllOrdersManager',
     async (params: GetAllOrdersManagerProps) => {
         return await fetchGetAllOrdersManager(params);
+    },
+);
+
+export const fetchDeliveryStatusOrderManagerAction = createAsyncThunk(
+    'deliveryStatusOrderManager/fetchDeliveryStatusOrderManager',
+    async (params: DeliveryStatusOrderManagerProps) => {
+        return await fetchDeliveryStatusOrderManager(params);
     },
 );
 

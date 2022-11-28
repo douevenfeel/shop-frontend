@@ -7,6 +7,11 @@ export interface GetAllOrdersManagerProps {
     dateTo?: string;
 }
 
+export interface DeliveryStatusOrderManagerProps {
+    id: number;
+    status: string;
+}
+
 export interface GetAllOrdersProps {
     page: number;
     canceled?: boolean;

@@ -1,9 +1,16 @@
 import { UserCardContainerStyled } from './ManagerUserCard.style';
 import { ManagerUserCardProps } from './ManagerUserCard.types';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Container, Paragraph } from 'utils/styles';
 
 export const ManagerUserCard: React.FC<ManagerUserCardProps> = ({ user }) => {
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate(`/manager/user/${user.id}`);
+    };
+
     return (
         <UserCardContainerStyled>
             <Paragraph>
@@ -27,7 +34,9 @@ export const ManagerUserCard: React.FC<ManagerUserCardProps> = ({ user }) => {
                 {user.role}
             </Paragraph>
             <Container justifyContent='flex-end'>
-                <Button fontSize='16px'>View all orders</Button>
+                <Button fontSize='16px' onClick={handleNavigate}>
+                    View all orders
+                </Button>
             </Container>
         </UserCardContainerStyled>
     );
