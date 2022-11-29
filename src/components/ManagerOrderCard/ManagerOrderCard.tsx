@@ -44,12 +44,12 @@ export const ManagerOrderCard: React.FC<ManagerOrderCardProps> = ({ order }) => 
             </Paragraph>
             <Paragraph>
                 <strong>Order date: </strong>
-                {dayjs(order.orderDate).format(' DD/MM/YYYY HH:mm')}
+                {dayjs(order.orderDate).format('DD.MM.YYYY HH:mm')}
             </Paragraph>
             {!order.canceled && (
                 <Paragraph>
                     <strong>Delivery date: </strong>
-                    {dayjs(order.deliveryDate).format(' DD/MM/YYYY HH:mm')}
+                    {dayjs(order.deliveryDate).format('DD.MM.YYYY HH:mm')}
                 </Paragraph>
             )}
 

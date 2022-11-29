@@ -27,8 +27,8 @@ export const OrderCard: React.FC<OrderCardProps> = ({ canceled, delivered, deliv
     return (
         <OrderCardStyled>
             <Paragraph>Order number: {id}</Paragraph>
-            <Paragraph>Order date: {dayjs(orderDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
-            <Paragraph>Delivery date: {dayjs(deliveryDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
+            <Paragraph>Order date: {dayjs(orderDate).format('DD.MM.YYYY HH:mm')}</Paragraph>
+            <Paragraph>Delivery date: {dayjs(deliveryDate).format('DD.MM.YYYY HH:mm')}</Paragraph>
             <Paragraph>
                 Status:{' '}
                 {canceled ? (

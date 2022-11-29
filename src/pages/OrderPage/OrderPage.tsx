@@ -39,9 +39,9 @@ export const OrderPage = () => {
         <Page justifyContent='center' alignItems='center'>
             <OrderPageStyled>
                 <Paragraph>Order number: {order.id}</Paragraph>
-                <Paragraph>Order date: {dayjs(order.orderDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
+                <Paragraph>Order date: {dayjs(order.orderDate).format('DD.MM.YYYY HH:mm')}</Paragraph>
                 {!order.canceled && (
-                    <Paragraph>Delivery date: {dayjs(order.deliveryDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
+                    <Paragraph>Delivery date: {dayjs(order.deliveryDate).format('DD.MM.YYYY HH:mm')}</Paragraph>
                 )}
                 <Paragraph>
                     Status:{' '}

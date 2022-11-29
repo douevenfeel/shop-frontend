@@ -65,6 +65,10 @@ const orderSlice = createSlice({
         setParams: (state, { payload }) => {
             state.params = payload;
         },
+        setDate: (state, { payload }) => {
+            state.dateFrom = payload.dateFrom;
+            state.dateTo = payload.dateTo;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchCreateOrderAction.pending, (state) => {
@@ -196,6 +200,6 @@ const orderSlice = createSlice({
     },
 });
 
-export const { resetOrder, changePageOrder, changeUserPageOrder, findOrder, setParams } = orderSlice.actions;
+export const { resetOrder, changePageOrder, changeUserPageOrder, findOrder, setParams, setDate } = orderSlice.actions;
 
 export const orderReducer = orderSlice.reducer;
