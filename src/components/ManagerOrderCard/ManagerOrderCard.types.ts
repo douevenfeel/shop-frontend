@@ -1,3 +1,3 @@
-import { OrderModel } from "models/orderModel";
+import { OrderModel } from 'models/orderModel';
 
-export type ManagerOrderCardProps = {order:OrderModel};
+export type ManagerOrderCardProps = { order: OrderModel };

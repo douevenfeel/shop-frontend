@@ -43,16 +43,51 @@ export const ManagerOrderPage: React.FC<ManagerOrderPageProps> = () => {
         dispatch(fetchDeliveryStatusOrderManagerAction(values));
     };
 
+    console.log(order);
+
     return (
         <Container justifyContent='center' alignItems='center' width='80vw' padding='20px' height='auto'>
             <OrderPageStyled>
-                <Paragraph>Order number: {order.id}</Paragraph>
-                <Paragraph>Order date: {dayjs(order.orderDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
-                {!order.canceled && (
-                    <Paragraph>Delivery date: {dayjs(order.deliveryDate).format(' DD/MM/YYYY HH:mm')}</Paragraph>
+                {!!order.user && (
+                    <>
+                        <Paragraph>
+                            <strong>User's id: </strong>
+                            {order.user.id}
+                        </Paragraph>
+                        <Paragraph>
+                            <strong>User's email: </strong>
+                            {order.user.email}
+                        </Paragraph>
+                        <Paragraph>
+                            <strong>User's first name: </strong>
+                            {order.user.firstName}
+                        </Paragraph>
+                        <Paragraph>
+                            <strong>User's last name: </strong>
+                            {order.user.lastName}
+                        </Paragraph>
+                        <Paragraph>
+                            <strong>User's role: </strong>
+                            {order.user.role}
+                        </Paragraph>
+                    </>
                 )}
                 <Paragraph>
-                    Status:{' '}
+                    <strong>Order number: </strong>
+                    {order.id}
+                </Paragraph>
+                <Paragraph>
+                    <strong>Order date: </strong>
+                    {dayjs(order.orderDate).format(' DD/MM/YYYY HH:mm')}
+                </Paragraph>
+                {!order.canceled && (
+                    <Paragraph>
+                        <strong>Delivery date: </strong>
+                        {dayjs(order.deliveryDate).format(' DD/MM/YYYY HH:mm')}
+                    </Paragraph>
+                )}
+                <Paragraph>
+                    <strong>Status: </strong>
                     {order.canceled ? (
                         <Paragraph as='span' color={THEME.red}>
                             canceled

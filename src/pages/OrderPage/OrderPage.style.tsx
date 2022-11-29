@@ -9,6 +9,5 @@ export const OrderPageStyled = styled.div`
     max-width: 804px;
     padding: 12px;
     border-radius: 8px;
-    gap: 4px;
     background: ${THEME.darkerGray};
 `;

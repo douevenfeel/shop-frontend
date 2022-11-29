@@ -1,4 +1,5 @@
 import { DeviceModel } from './deviceModel';
+import { UserModel } from './userModel';
 
 export interface OrderModel {
     id: number;
@@ -7,6 +8,7 @@ export interface OrderModel {
     delivered: boolean;
     canceled: boolean;
     hidden: boolean;
+    user: UserModel;
 }
 
 export interface OrderDeviceModel {

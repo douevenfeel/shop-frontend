@@ -24,6 +24,7 @@ export interface OrderState {
     dateFrom: string;
     dateTo: string;
     order: OrderDetailModel;
+    params: {};
     error: string;
 }
 
@@ -39,6 +40,7 @@ const initialState: OrderState = {
     dateFrom: '',
     dateTo: '',
     order: {} as OrderDetailModel,
+    params: {},
     error: '',
 };
 
@@ -59,6 +61,9 @@ const orderSlice = createSlice({
             payload.userId ? (state.userId = payload.userId) : (state.userId = 0);
             payload.dateFrom ? (state.dateFrom = payload.dateFrom) : (state.dateFrom = '');
             payload.dateTo ? (state.dateTo = payload.dateTo) : (state.dateTo = '');
+        },
+        setParams: (state, { payload }) => {
+            state.params = payload;
         },
     },
     extraReducers: (builder) => {
@@ -191,6 +196,6 @@ const orderSlice = createSlice({
     },
 });
 
-export const { resetOrder, changePageOrder, changeUserPageOrder, findOrder } = orderSlice.actions;
+export const { resetOrder, changePageOrder, changeUserPageOrder, findOrder, setParams } = orderSlice.actions;
 
 export const orderReducer = orderSlice.reducer;

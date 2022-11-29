@@ -5,14 +5,13 @@ import { OrderPanel } from 'components/OrderPanel';
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import { useState, useEffect } from 'react';
 import { fetchGetAllOrdersAction } from 'store/actions/orderAction';
-import { changePageOrder } from 'store/reducers/orderReducer';
+import { changePageOrder, setParams } from 'store/reducers/orderReducer';
 import { Page, Paragraph, Container } from 'utils/styles';
 
 type CurrentType = 'all' | 'delivered' | 'in delivery' | 'canceled';
 
 export const OrdersPage = () => {
-    const { orders, count, limit, page, fetchActionStatus } = useAppSelector((store) => store.order);
-    const [params, setParams] = useState({});
+    const { orders, count, limit, page, params, fetchActionStatus } = useAppSelector((store) => store.order);
     const dispatch = useAppDispatch();
     const [current, setCurrent] = useState<CurrentType>('all');
 
@@ -26,22 +25,22 @@ export const OrdersPage = () => {
     }, [dispatch, fetchActionStatus, page, params]);
 
     const handleAll = () => {
-        setParams({});
+        dispatch(setParams({}));
         setCurrent('all');
     };
 
     const handleDelivered = () => {
-        setParams({ delivered: true });
+        dispatch(setParams({ delivered: true }));
         setCurrent('delivered');
     };
 
     const handleInDelivery = () => {
-        setParams({ delivered: false, canceled: false });
+        dispatch(setParams({ delivered: false, canceled: false }));
         setCurrent('in delivery');
     };
 
     const handleCanceled = () => {
-        setParams({ canceled: true });
+        dispatch(setParams({ canceled: true }));
         setCurrent('canceled');
     };
 
