@@ -23,6 +23,8 @@ export interface DeviceState {
     page: number;
     limit: number;
     title: string;
+    minPrice: number;
+    maxPrice: number;
     fromPrice: number;
     toPrice: number;
     order: { title: string; order: [string, string] };
@@ -37,6 +39,8 @@ const initialState: DeviceState = {
     page: 1,
     limit: 12,
     title: 'all',
+    minPrice: 0,
+    maxPrice: 0,
     fromPrice: 0,
     toPrice: 0,
     order: { title: 'default', order: ['image', 'DESC'] },
@@ -74,6 +78,8 @@ const deviceSlice = createSlice({
             state.fetchStatus = FetchStatus.FULFILLED;
             state.devices = payload.rows;
             state.count = payload.count;
+            state.minPrice = payload.minPrice;
+            state.maxPrice = payload.maxPrice;
         });
         builder.addCase(fetchGetAllDevicesAction.rejected, (state) => {
             console.log('fetchGetOneDeviceAction.rejected');

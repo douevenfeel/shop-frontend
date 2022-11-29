@@ -14,7 +14,7 @@ const orderValues: DropdownValueProps[] = [
 ];
 
 export const ShopPanel: React.FC<ShopPanelProps> = ({ brandTitle, removeBrand }) => {
-    const { order } = useAppSelector((store) => store.device);
+    const { order, minPrice, maxPrice } = useAppSelector((store) => store.device);
     const dispatch = useAppDispatch();
     const [title, setTitle] = useState<string>('');
     const [fromPrice, setFromPrice] = useState<number | string>('');
@@ -29,7 +29,7 @@ export const ShopPanel: React.FC<ShopPanelProps> = ({ brandTitle, removeBrand })
 
     useEffect(() => {
         dispatch(findDevice({ title: debouncedTitle, fromPrice: debouncedFromPrice, toPrice: debouncedToPrice }));
-    }, [debouncedFromPrice, debouncedTitle, debouncedToPrice, dispatch]);
+    }, [debouncedFromPrice, debouncedTitle, debouncedToPrice, dispatch, maxPrice, minPrice]);
 
     const handleFromPrice = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         +e.target.value === 0 ? setFromPrice('') : setFromPrice(+e.target.value);
@@ -57,7 +57,7 @@ export const ShopPanel: React.FC<ShopPanelProps> = ({ brandTitle, removeBrand })
                 <Container gap='8px' alignItems='center'>
                     <Paragraph>from</Paragraph>
                     <Input
-                        placeholder='From price...'
+                        placeholder={minPrice.toString()}
                         type='number'
                         value={fromPrice.toString()}
                         onChange={handleFromPrice}
@@ -67,7 +67,7 @@ export const ShopPanel: React.FC<ShopPanelProps> = ({ brandTitle, removeBrand })
                 <Container gap='8px' alignItems='center'>
                     <Paragraph>to</Paragraph>
                     <Input
-                        placeholder='To price...'
+                        placeholder={maxPrice.toString()}
                         type='number'
                         value={toPrice.toString()}
                         onChange={handleToPrice}
