@@ -14,7 +14,7 @@ export const ManagerOrdersPage: React.FC<ManagerOrdersPageProps> = () => {
         (store) => store.order,
     );
     useEffect(() => {
-        const values: any = { page, ...params };
+        const values: { [key: string]: number | string; page: number } = { page, ...params };
         if (userId !== 0) {
             values.userId = userId;
         }

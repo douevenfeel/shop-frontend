@@ -12,16 +12,24 @@ import { Container } from 'utils/styles';
 export const ManagerUserPage: React.FC<ManagerUserPageProps> = () => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
-    const { userPage, orders, fetchActionStatus, count, limit, params } = useAppSelector((store) => store.order);
+    const { userPage, orders, fetchActionStatus, count, limit, params, dateFrom, dateTo } = useAppSelector(
+        (store) => store.order,
+    );
 
     const handlePage = (page: number) => {
         dispatch(changeUserPageOrder(page));
     };
 
     useEffect(() => {
-        const values = { userId: +id!, page: userPage, ...params };
+        const values: { [key: string]: number | string; page: number } = { userId: +id!, page: userPage, ...params };
+        if (dateFrom !== '') {
+            values.dateFrom = dateFrom;
+        }
+        if (dateTo !== '') {
+            values.dateTo = dateTo;
+        }
         dispatch(fetchGetAllOrdersManagerAction(values));
-    }, [dispatch, id, params, userPage, fetchActionStatus]);
+    }, [dispatch, id, params, userPage, fetchActionStatus, dateFrom, dateTo]);
 
     return (
         <Container
