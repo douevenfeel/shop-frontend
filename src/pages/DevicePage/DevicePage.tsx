@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { fetchAddDeviceBasketAction } from 'store/actions/basketAction';
 import { fetchGetOneDeviceAction } from 'store/actions/deviceAction';
 import { resetDevice } from 'store/reducers/deviceReducer';
+import { THEME } from 'utils/constants';
 import { Button, Container, Image, Page, Paragraph } from 'utils/styles';
 
 export const DevicePage = () => {
@@ -42,6 +43,9 @@ export const DevicePage = () => {
                             alt={device.title}
                         />
                         <Container flexDirection='column'>
+                            <Paragraph fontSize='20px' color={THEME.blue}>
+                                {device.brand?.title}
+                            </Paragraph>
                             <Paragraph fontSize='20px'>{device.title}</Paragraph>
                             <Paragraph fontWeight='500' fontSize='20px'>
                                 {device.price} р.

@@ -1,13 +1,12 @@
+import { OrderCardStyled } from './OrderCard.style';
+import { OrderCardProps } from './OrderCard.types';
+import dayjs from 'dayjs';
 import { useAppDispatch } from 'hooks/redux';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchCancelOrderAction, fetchHideOrderAction } from 'store/actions/orderAction';
 import { THEME } from 'utils/constants';
 import { Button, Container, Paragraph } from 'utils/styles';
-import { OrderCardStyled } from './OrderCard.style';
-import dayjs from 'dayjs';
-
-import { OrderCardProps } from './OrderCard.types';
-import { useNavigate } from 'react-router-dom';
 
 export const OrderCard: React.FC<OrderCardProps> = ({ canceled, delivered, deliveryDate, id, orderDate }) => {
     const dispatch = useAppDispatch();
@@ -26,11 +25,20 @@ export const OrderCard: React.FC<OrderCardProps> = ({ canceled, delivered, deliv
 
     return (
         <OrderCardStyled>
-            <Paragraph>Order number: {id}</Paragraph>
-            <Paragraph>Order date: {dayjs(orderDate).format('DD.MM.YYYY HH:mm')}</Paragraph>
-            <Paragraph>Delivery date: {dayjs(deliveryDate).format('DD.MM.YYYY HH:mm')}</Paragraph>
             <Paragraph>
-                Status:{' '}
+                <strong>Order number: </strong>
+                {id}
+            </Paragraph>
+            <Paragraph>
+                <strong>Order date: </strong>
+                {dayjs(orderDate).format('DD.MM.YYYY HH:mm')}
+            </Paragraph>
+            <Paragraph>
+                <strong>Delivery date: </strong>
+                {dayjs(deliveryDate).format('DD.MM.YYYY HH:mm')}
+            </Paragraph>
+            <Paragraph>
+                <strong>Status: </strong>
                 {canceled ? (
                     <Paragraph as='span' color={THEME.red}>
                         canceled
