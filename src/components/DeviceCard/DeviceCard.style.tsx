@@ -9,6 +9,6 @@ export const Card = styled.div`
     width: 320px;
     background: ${THEME.darkerGray};
     border-radius: 12px;
-    padding: 24px 24px;
+    padding: 24px;
     gap: 12px;
 `;

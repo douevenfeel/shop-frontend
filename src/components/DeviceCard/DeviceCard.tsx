@@ -35,7 +35,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, handleBrand }) =
                 </Paragraph>
                 <Container justifyContent='space-between' width='100%'>
                     <Paragraph>{device.title}</Paragraph>
-                        <Paragraph fontWeight='500'>{device.price} р.</Paragraph>
+                    <Paragraph fontWeight='500'>{device.price} р.</Paragraph>
                 </Container>
             </Container>
             {authorized && (
